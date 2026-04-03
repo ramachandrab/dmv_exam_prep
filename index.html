@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>CA DMV Practice Quiz 2026</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{font-size:16px;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:#f1f5f9;min-height:100vh;color:#1e293b;line-height:1.5}
+button{font-family:inherit;cursor:pointer;-webkit-appearance:none;appearance:none;border:none;background:none}
+a{color:#2563eb;text-decoration:none}
+a:hover{text-decoration:underline}
+#app{max-width:700px;margin:0 auto;padding:16px 14px 60px}
+.hdr{text-align:center;margin-bottom:18px}
+.hdr-emoji{font-size:48px;line-height:1;margin-bottom:5px}
+.hdr h1{color:#1e3a8a;font-size:clamp(17px,4vw,21px);font-weight:800;margin-bottom:3px}
+.hdr p{color:#64748b;font-size:clamp(11px,2.4vw,13px);line-height:1.5}
+.nav-tabs{display:flex;gap:6px;margin-bottom:20px}
+.nav-tab{flex:1;padding:10px 4px;border-radius:11px;font-size:clamp(11px,2.5vw,13px);font-weight:700;border:2px solid #e2e8f0;background:#fff;color:#64748b;text-align:center;transition:all .15s;line-height:1.3}
+.nav-tab.active{background:#1e3a8a;color:#fff;border-color:#1e3a8a}
+.nav-tab:active{transform:scale(.97)}
+.sec{font-weight:700;color:#475569;font-size:11px;text-transform:uppercase;letter-spacing:1.1px;margin:0 0 8px;padding-left:2px}
+.btn-set{display:flex;flex-direction:column;gap:8px;margin-bottom:22px}
+.bfull{display:block;width:100%;background:#fff;border-radius:12px;padding:13px 15px;text-align:left;border:2px solid #e2e8f0;transition:transform .1s}
+.bfull:active{transform:scale(.98)}
+.bfull .lbl{font-weight:700;font-size:clamp(13px,3vw,15px);line-height:1.3;margin-bottom:2px}
+.bfull .sub{font-size:clamp(11px,2.4vw,12px);color:#64748b;line-height:1.4}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:26px}
+.btopic{display:block;width:100%;background:#fff;border-radius:10px;padding:11px 12px;text-align:left;border:1.5px solid #e2e8f0;border-left-width:4px;min-height:55px;transition:transform .1s}
+.btopic:active{transform:scale(.97)}
+.btopic .t{font-weight:700;font-size:clamp(10px,2.1vw,12px);line-height:1.3;margin-bottom:2px}
+.btopic .c{font-size:10px;color:#94a3b8}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;gap:6px}
+.mlbl{font-weight:700;color:#2563eb;font-size:clamp(11px,2.4vw,13px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
+.quiz-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.scorelbl{font-size:clamp(11px,2.4vw,12px);color:#64748b;white-space:nowrap}
+.bcanel{background:#fee2e2;color:#dc2626;border-radius:8px;padding:5px 10px;font-size:12px;font-weight:700;border:1.5px solid #fca5a5;white-space:nowrap}
+.bcanel:active{background:#fecaca}
+.bpause{background:#f0fdf4;color:#15803d;border-radius:8px;padding:5px 10px;font-size:12px;font-weight:700;border:1.5px solid #86efac;white-space:nowrap}
+.bpause:active{background:#dcfce7}
+.prog{background:#e2e8f0;border-radius:99px;height:6px;margin-bottom:13px}
+.progb{background:#2563eb;height:6px;border-radius:99px;transition:width .35s ease}
+.qcard{background:#fff;border-radius:13px;padding:14px 16px;margin-bottom:12px;border:1px solid #e2e8f0;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.tbadge{display:inline-block;font-size:10px;font-weight:700;border-radius:99px;padding:3px 9px;margin-bottom:9px;line-height:1.4}
+.qtxt{font-size:clamp(14px,3.4vw,16px);font-weight:600;color:#0f172a;line-height:1.55}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:block;width:100%;border-radius:11px;padding:12px 15px;text-align:left;font-size:clamp(13px,2.9vw,15px);font-weight:500;border:1.5px solid #cbd5e1;background:#fff;color:#1e293b;line-height:1.4;transition:background .12s,border-color .12s}
+.opt:not(.done):hover{background:#f8fafc;border-color:#94a3b8}
+.opt:not(.done):active{transform:scale(.985)}
+.opt.correct{background:#f0fdf4;border:2px solid #22c55e;color:#15803d;font-weight:600}
+.opt.wrong{background:#fef2f2;border:2px solid #ef4444;color:#b91c1c;font-weight:600}
+.opt.done{cursor:default}
+.letter{font-weight:700;margin-right:8px;opacity:.7}
+.opt.correct .letter,.opt.wrong .letter{opacity:1}
+.fb{margin-top:12px;border-radius:11px;padding:13px 15px;font-size:clamp(12px,2.7vw,14px);line-height:1.6;background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af}
+.fb strong{display:block;margin-bottom:4px;font-size:clamp(13px,2.9vw,15px)}
+.src-note{display:block;font-size:10px;color:#94a3b8;margin-top:5px}
+.nxt{display:inline-block;margin-top:10px;background:#2563eb;color:#fff;border-radius:10px;padding:10px 22px;font-size:clamp(13px,2.9vw,15px);font-weight:700;min-width:120px;text-align:center}
+.nxt:active{background:#1d4ed8}
+.modal-bg{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modal{background:#fff;border-radius:18px;padding:22px 20px;max-width:340px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.modal h3{font-size:16px;font-weight:800;color:#1e293b;margin-bottom:7px}
+.modal p{font-size:13px;color:#64748b;line-height:1.6;margin-bottom:18px}
+.modal-btns{display:flex;flex-direction:column;gap:8px}
+.mbtn-keep{background:#2563eb;color:#fff;border-radius:10px;padding:12px;font-size:14px;font-weight:700;width:100%}
+.mbtn-keep:active{background:#1d4ed8}
+.mbtn-pause{background:#f0fdf4;color:#15803d;border:1.5px solid #86efac;border-radius:10px;padding:12px;font-size:14px;font-weight:700;width:100%}
+.mbtn-pause:active{background:#dcfce7}
+.mbtn-end{background:#fee2e2;color:#dc2626;border:1.5px solid #fca5a5;border-radius:10px;padding:12px;font-size:14px;font-weight:700;width:100%}
+.mbtn-end:active{background:#fecaca}
+.rcard{text-align:center;padding:22px 16px;border-radius:15px;margin-bottom:16px;border:2px solid}
+.rcard-emoji{font-size:48px;line-height:1}
+.rcard-title{font-size:clamp(16px,4vw,20px);font-weight:800;margin:9px 0 2px}
+.rcard-score{font-size:clamp(18px,4.5vw,22px);font-weight:700;color:#1e293b;margin:3px 0}
+.rcard-sub{color:#64748b;font-size:12px}
+.partial-banner{background:#fff3cd;border:1.5px solid #ffc107;border-radius:10px;padding:10px 13px;margin-bottom:12px;font-size:12px;color:#856404;line-height:1.5}
+.mtoggle{display:flex;width:100%;justify-content:space-between;align-items:center;border-radius:10px;padding:12px 15px;margin-bottom:8px;border:1.5px solid;font-size:clamp(12px,2.7vw,14px)}
+.perf{text-align:center;padding:12px;background:#f0fdf4;border-radius:10px;margin-bottom:14px;color:#15803d;font-weight:700;font-size:13px}
+.mitem{background:#fff;border:1.5px solid #e2e8f0;border-radius:10px;overflow:hidden;margin-bottom:8px}
+.mhdr{display:flex;width:100%;justify-content:space-between;align-items:flex-start;padding:11px 14px;text-align:left;gap:7px}
+.mhdr-info{flex:1;min-width:0}
+.mbadge{display:inline-block;font-size:9px;font-weight:700;background:#fee2e2;color:#dc2626;border-radius:99px;padding:2px 7px;margin-bottom:4px;white-space:nowrap}
+.mqtxt{font-size:clamp(12px,2.7vw,13px);font-weight:600;color:#0f172a;line-height:1.4}
+.mchev{font-size:12px;color:#94a3b8;flex-shrink:0;padding-top:2px;transition:transform .2s}
+.mchev.open{transform:rotate(180deg)}
+.mbody{padding:0 14px 13px}
+.mopt{border-radius:7px;padding:7px 11px;margin-bottom:5px;font-size:clamp(11px,2.4vw,13px);line-height:1.4;border:1px solid #e2e8f0;background:#f8fafc;color:#475569}
+.mopt.mc{background:#f0fdf4;border-color:#22c55e;color:#15803d}
+.mopt.mw{background:#fef2f2;border-color:#ef4444;color:#b91c1c}
+.expl{border-radius:8px;padding:10px 12px;margin-top:4px;font-size:clamp(11px,2.4vw,13px);line-height:1.6;background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af}
+.arow{display:flex;gap:9px;margin-top:5px}
+.bret{flex:1;background:#2563eb;color:#fff;border-radius:10px;padding:13px 8px;font-size:clamp(13px,2.9vw,14px);font-weight:700;text-align:center}
+.bret:active{background:#1d4ed8}
+.bbk{flex:1;background:#f1f5f9;color:#374151;border:1.5px solid #cbd5e1;border-radius:10px;padding:13px 8px;font-size:clamp(13px,2.9vw,14px);font-weight:600;text-align:center}
+.bbk:active{background:#e2e8f0}
+.acc-section{background:#fff;border-radius:13px;margin-bottom:12px;border:1px solid #e2e8f0;overflow:hidden}
+.acc-hdr{display:flex;align-items:center;gap:10px;padding:13px 15px;background:#f8fafc;border-bottom:1px solid #e2e8f0;cursor:pointer}
+.acc-icon{font-size:18px;flex-shrink:0}
+.acc-title{font-weight:700;font-size:clamp(13px,2.9vw,15px);color:#1e3a8a;flex:1;line-height:1.3}
+.acc-chev{font-size:12px;color:#94a3b8;transition:transform .2s;flex-shrink:0}
+.acc-chev.open{transform:rotate(180deg)}
+.acc-body{padding:14px 15px;display:none}
+.acc-body.open{display:block}
+.cs-row{display:flex;align-items:flex-start;gap:9px;padding:7px 0;border-bottom:1px solid #f1f5f9;font-size:clamp(12px,2.5vw,13px);line-height:1.5}
+.cs-row:last-child{border-bottom:none}
+.cs-key{font-weight:700;color:#1e40af;min-width:clamp(100px,28vw,155px);flex-shrink:0;font-size:clamp(11px,2.3vw,13px)}
+.cs-val{color:#374151}
+.tip-box{background:#fffbeb;border-left:3px solid #f59e0b;border-radius:0 8px 8px 0;padding:8px 11px;margin:10px 0 4px;font-size:clamp(11px,2.3vw,12px);color:#92400e;line-height:1.5}
+.tip-box strong{display:block;margin-bottom:2px}
+.dg-card{background:#f8fafc;border-radius:10px;padding:12px 14px;margin-bottom:10px;border-left:4px solid #2563eb}
+.dg-card:last-child{margin-bottom:0}
+.dg-card-title{font-weight:700;font-size:clamp(13px,2.8vw,14px);color:#1e3a8a;margin-bottom:8px}
+.dg-rule{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;font-size:clamp(12px,2.5vw,13px);line-height:1.5;color:#374151}
+.dg-rule:last-child{margin-bottom:0}
+.dg-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.sources{margin-top:28px;background:#fff;border-radius:13px;padding:16px 15px;border:1px solid #e2e8f0}
+.sources h3{font-size:14px;color:#1e3a8a;font-weight:700;margin-bottom:12px}
+.src-item{padding:9px 0;border-bottom:1px solid #f1f5f9}
+.src-item:last-of-type{border-bottom:none}
+.src-item .st{font-size:13px;font-weight:600;color:#374151;margin-bottom:3px}
+.src-item a{font-size:11px;color:#2563eb;word-break:break-all;display:block}
+.src-item .sd{font-size:11px;color:#64748b;margin-top:2px;line-height:1.5}
+.disclaimer{margin-top:10px;font-size:11px;color:#94a3b8;line-height:1.6;border-top:1px solid #f1f5f9;padding-top:10px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// ── QUESTION BANK ─────────────────────────────────────────────────────────────
+var Q=[
+  {t:"Speed Limits",q:"What is the speed limit in a school zone unless otherwise posted?",o:["15 mph","25 mph","35 mph","20 mph"],a:1,e:"25 mph near a school when children are present. Some communities are adopting 20 mph early; statewide 20 mph takes effect in 2031.",src:"Handbook S7"},
+  {t:"Speed Limits",q:"What is the maximum speed on a two-lane undivided road outside a business or residential district if not posted?",o:["55 mph","65 mph","45 mph","50 mph"],a:0,e:"55 mph is the prima facie limit on two-lane undivided roads outside business or residential districts.",src:"CVC 22349b"},
+  {t:"Speed Limits",q:"What is the Basic Speed Law?",o:["Always drive at the posted speed limit","Never drive faster than is safe for current conditions","Drive no faster than 65 mph on any road","Match the speed of surrounding traffic"],a:1,e:"CVC 22350: Never drive faster than is safe for current road conditions, regardless of the posted limit.",src:"CVC 22350"},
+  {t:"Speed Limits",q:"What is the maximum speed limit on a freeway unless otherwise posted?",o:["55 mph","65 mph","70 mph","75 mph"],a:1,e:"65 mph on most California freeways unless a higher limit of 70 mph is posted.",src:"CVC 22349a"},
+  {t:"Speed Limits",q:"What is the speed limit in an alley?",o:["10 mph","15 mph","20 mph","25 mph"],a:1,e:"15 mph is the prima facie speed limit in any alley in California.",src:"Handbook S7"},
+  {t:"Speed Limits",q:"What is the speed limit within 100 feet of a railroad crossing where you cannot see 400 feet in both directions?",o:["10 mph","15 mph","25 mph","35 mph"],a:1,e:"15 mph within 100 feet of a railroad crossing with limited visibility. You may drive faster if the crossing is controlled by gates, a warning signal, or a flagman.",src:"CVC 22352"},
+  {t:"Speed Limits",q:"What is the speed limit in a business or residential district if not posted?",o:["25 mph","35 mph","40 mph","55 mph"],a:0,e:"25 mph is the prima facie speed limit in any business or residential district unless a different limit is posted.",src:"CVC 22352"},
+  {t:"Speed Limits",q:"You are driving in heavy rain and the posted limit is 65 mph. What should you do?",o:["Drive 65 mph - it is the legal limit","Slow down - the Basic Speed Law requires a safe speed for conditions","Drive exactly 55 mph","Use hazard lights and maintain speed"],a:1,e:"The Basic Speed Law always applies. Even at a 65 mph posted limit, you must slow to a speed safe for current weather.",src:"CVC 22350"},
+  {t:"Speed Limits",q:"What is the speed limit at a blind intersection with no stop signs?",o:["10 mph","15 mph","25 mph","35 mph"],a:1,e:"A blind intersection with no stop signs at any corner where you cannot see cross traffic for 100 feet has a speed limit of 15 mph.",src:"Handbook S7"},
+  {t:"Traffic Signals & Signs",q:"What does a yellow traffic light mean?",o:["Speed up to make it through","Stop immediately","About to turn red - stop if you can do so safely","Yield to oncoming traffic"],a:2,e:"A yellow light warns the signal is about to turn red. Stop if you can do so safely before the intersection.",src:"Handbook S7"},
+  {t:"Traffic Signals & Signs",q:"A red arrow on a traffic signal means:",o:["Yield then proceed if clear","Stop - you may not turn in that direction","Slow down and proceed with caution","Stop then proceed when safe"],a:1,e:"A red arrow means STOP and do NOT turn in that direction, even after stopping.",src:"Handbook S7"},
+  {t:"Traffic Signals & Signs",q:"A flashing red traffic light means:",o:["Slow down and proceed","Treat like a stop sign - stop then go when safe","Yield to cross traffic","Proceed with caution"],a:1,e:"A flashing red must be treated as a stop sign: full stop, then proceed when safe.",src:"Handbook S7"},
+  {t:"Traffic Signals & Signs",q:"A flashing yellow light means:",o:["Stop before proceeding","Treat as a stop sign","Slow down and proceed with caution","Yield to all traffic"],a:2,e:"A flashing yellow means slow down and proceed with caution. You do not need to stop.",src:"Handbook S7"},
+  {t:"Traffic Signals & Signs",q:"A solid yellow center line on YOUR side of the road means:",o:["You may pass if safe","You may NOT pass","Passing allowed in daylight only","Slow down before passing"],a:1,e:"A solid yellow line on your side prohibits passing - do not cross it.",src:"Handbook S6"},
+  {t:"Traffic Signals & Signs",q:"A solid white line on the right edge of the road means:",o:["You may cross it to pass","It marks the right edge - do not cross it","A bike lane you may enter anytime","A carpool lane boundary"],a:1,e:"A solid white line on the right edge marks the road boundary. Do not drive beyond it except to exit.",src:"Handbook S6"},
+  {t:"Traffic Signals & Signs",q:"A broken yellow center line means:",o:["No passing at any time","Passing is allowed when safe","Two-way traffic only","Keep right at all times"],a:1,e:"A broken yellow center line means passing is allowed when it is safe to do so.",src:"Handbook S6"},
+  {t:"Traffic Signals & Signs",q:"When a traffic light is not working at all, you should:",o:["Proceed at normal speed","Yield to the right only","Treat it as a 4-way stop - stop then proceed when safe","Flash headlights and proceed"],a:2,e:"When a traffic light is not working, treat the intersection as if it has STOP signs in all directions.",src:"Handbook S7"},
+  {t:"Traffic Signals & Signs",q:"A solid yellow line is on your left and a broken yellow line is on your right. This means:",o:["Both directions may pass","Only you may pass - your side has a broken line","Only oncoming traffic may pass","Neither direction may pass"],a:1,e:"When a solid yellow line is paired with a broken yellow line, only the driver next to the broken line may pass.",src:"Handbook S6"},
+  {t:"Road Signs",q:"What shape is a STOP sign?",o:["Circle","Triangle","Octagon","Diamond"],a:2,e:"Stop signs are always octagonal (8-sided) and red.",src:"Handbook S7"},
+  {t:"Road Signs",q:"What does an orange diamond-shaped sign indicate?",o:["School zone","Railroad crossing","Construction or work zone","Pedestrian crossing"],a:2,e:"Orange diamond signs warn of construction or work zones. Fines are doubled in these areas.",src:"Handbook S7"},
+  {t:"Road Signs",q:"What color are regulatory signs such as speed limit signs?",o:["Yellow","Orange","White with black text or red and white","Green"],a:2,e:"Regulatory signs are white with black text, or red and white such as STOP and YIELD signs.",src:"Handbook S7"},
+  {t:"Road Signs",q:"A triangular red and white sign means:",o:["Stop","Slow down","Yield","No entry"],a:2,e:"An inverted triangle red and white sign is a YIELD sign.",src:"Handbook S7"},
+  {t:"Road Signs",q:"What do blue highway signs indicate?",o:["Warnings and hazards","Regulatory rules","Services such as food, gas, and lodging","Distance and directions"],a:2,e:"Blue signs indicate motorist services: gas stations, food, lodging, hospitals, and rest areas.",src:"Handbook S7"},
+  {t:"Road Signs",q:"Green highway signs are used for:",o:["Warning of hazards","Regulatory information","Guide and directional information such as exits and distances","Construction zones"],a:2,e:"Green signs provide guide information: highway exits, distances to cities, and directions.",src:"Handbook S7"},
+  {t:"Road Signs",q:"A 5-sided pentagon-shaped sign means:",o:["Railroad crossing ahead","Yield ahead","You are near a school","Work zone ahead"],a:2,e:"A pentagon-shaped sign indicates you are near a school. Drive slowly and watch for children.",src:"Handbook S7"},
+  {t:"Road Signs",q:"A yellow diamond sign with a picture of a deer means:",o:["Deer hunting area","Watch for animals crossing the road","No animals allowed","Wildlife preserve nearby"],a:1,e:"Diamond-shaped yellow signs are warning signs. A deer symbol warns drivers to watch for animals crossing the road ahead.",src:"Handbook S7"},
+  {t:"Parking Rules",q:"It is illegal to park within how many feet of a fire hydrant?",o:["10 feet","15 feet","20 feet","25 feet"],a:1,e:"CVC 22514: No stopping, parking, or standing within 15 feet of a fire hydrant.",src:"CVC 22514"},
+  {t:"Parking Rules",q:"When parallel parking, your wheels must be within how many inches of the curb?",o:["6 inches","12 inches","18 inches","24 inches"],a:2,e:"Your vehicle should be parallel and within 18 inches of the curb after parallel parking.",src:"Handbook S6"},
+  {t:"Parking Rules",q:"When parking uphill WITH a curb, which direction should your front wheels face?",o:["Straight ahead","Toward the curb (right)","Away from the curb (left)","It does not matter"],a:2,e:"Uphill with a curb: turn wheels away from the curb (left). If the car rolls back it hits the curb and stops.",src:"Handbook S6"},
+  {t:"Parking Rules",q:"When parking downhill WITH a curb, which direction should your front wheels face?",o:["Away from the curb (left)","Straight ahead","Toward the curb (right)","It does not matter"],a:2,e:"Downhill with a curb: turn front wheels toward the curb (right). If the car rolls forward the curb stops it.",src:"Handbook S6"},
+  {t:"Parking Rules",q:"When parking on a hill with NO curb, which way do you turn your wheels?",o:["Left toward center of road","Straight ahead","Right toward the edge of the road","It does not matter"],a:2,e:"With no curb, always turn wheels to the right so the vehicle rolls away from the center of the road if the brakes fail.",src:"Handbook S6"},
+  {t:"Parking Rules",q:"You may not park within how many feet of a crosswalk at an intersection?",o:["10 feet","15 feet","20 feet","25 feet"],a:2,e:"No parking within 20 feet of an unmarked or marked crosswalk at an intersection.",src:"Handbook S6"},
+  {t:"Parking Rules",q:"You must not park within how many feet of a railroad crossing?",o:["50 feet","75 feet","100 feet","200 feet"],a:0,e:"Parking is prohibited within 50 feet of the nearest rail of a railroad crossing.",src:"Handbook S6"},
+  {t:"Parking Rules",q:"Which of the following is always illegal when parking?",o:["Parking on a residential street overnight","Parking within 18 inches of the curb","Parking on a sidewalk or blocking a driveway","Parking facing traffic on a one-way street"],a:2,e:"Parking on a sidewalk or blocking a driveway is always illegal.",src:"Handbook S6"},
+  {t:"Parking Rules",q:"You may park in a disabled parking space only if:",o:["You stop for just a moment","You have a valid DMV disabled person placard or special plate","The space has been vacant over 10 minutes","You are driving someone who has a disability"],a:1,e:"You must display a valid DMV-issued disabled person placard or disabled person license plate.",src:"CVC 22511.5"},
+  {t:"Parking Rules",q:"How should you secure your vehicle when parking on a steep hill?",o:["Only if parking for more than 30 minutes","Only if the road is wet","Always set the parking brake and leave the vehicle in gear or Park","Only when facing downhill"],a:2,e:"Always set the parking brake and leave an automatic in Park (or manual in gear) when parking on any hill.",src:"Handbook S6"},
+  {t:"Curb Colors",q:"What does a RED curb mean?",o:["No parking during business hours","No stopping standing or parking at any time","Loading zone for freight only","Emergency vehicles only"],a:1,e:"A red curb means no stopping, standing, or parking at any time for any vehicle.",src:"Handbook S6"},
+  {t:"Curb Colors",q:"What does a YELLOW curb mean?",o:["No parking anytime","Parking for disabled only","Stop only long enough to load or unload - driver must stay with vehicle","Parking for 30 minutes maximum"],a:2,e:"A yellow curb: stop only long enough to load or unload. Non-commercial drivers must stay with the vehicle.",src:"Handbook S6"},
+  {t:"Curb Colors",q:"What does a WHITE curb mean?",o:["No parking anytime","Stop only long enough to pick up or drop off passengers or mail","Parking for disabled persons only","Time-limited parking"],a:1,e:"A white curb: stop only long enough to pick up or drop off passengers or mail.",src:"Handbook S6"},
+  {t:"Curb Colors",q:"What does a BLUE curb mean?",o:["No stopping anytime","Loading zone only","Parking for disabled persons with valid placard or plate only","Time-limited parking"],a:2,e:"A blue curb is reserved for disabled persons only. A valid DMV-issued placard or disabled person license plate is required.",src:"Handbook S6"},
+  {t:"Curb Colors",q:"What does a GREEN curb mean?",o:["Parking is unlimited here","Parking allowed for a limited time - time is usually posted","Loading and unloading only","No parking anytime"],a:1,e:"A green curb allows parking for a limited time. The time is usually shown on a nearby sign or painted on the curb.",src:"Handbook S6"},
+  {t:"Curb Colors",q:"You need to drop off a friend at a building entrance. Which curb color is most appropriate?",o:["Red","Blue","White","Green"],a:2,e:"A white curb is for briefly dropping off or picking up passengers.",src:"Handbook S6"},
+  {t:"Curb Colors",q:"You want to pick up a freight package from a business. Which curb color allows this?",o:["White","Yellow","Blue","Green"],a:1,e:"A yellow curb allows loading and unloading of freight or passengers. Driver must remain with the vehicle.",src:"Handbook S6"},
+  {t:"Curb Colors",q:"A friend asks you to park at a blue curb while they run an errand. You have no placard. You should:",o:["Park quickly - it will be a minute","Park and stay in the car","Refuse - parking at a blue curb without a valid placard is illegal","Park only if no disabled person is waiting"],a:2,e:"Parking at a blue curb without a valid disabled placard or plate is illegal regardless of how long you stay.",src:"CVC 22511.5"},
+  {t:"Curb Colors",q:"You park at a yellow curb and walk into a store for 30 minutes. This is:",o:["Legal - yellow curbs allow 30 minutes","Legal - you can park as long as you want","Illegal - yellow curbs require the driver to remain with the vehicle","Legal only during business hours"],a:2,e:"A yellow curb is ONLY for loading and unloading. The driver must stay with the vehicle. Walking away is illegal.",src:"Handbook S6"},
+  {t:"Curb Colors",q:"Which curb color indicates parking is completely forbidden at all times?",o:["Yellow","White","Green","Red"],a:3,e:"Red means absolutely no stopping, standing, or parking at any time for any vehicle.",src:"Handbook S6"},
+  {t:"Curb Colors",q:"At a white curb, how long may you stop?",o:["Up to 30 minutes","Up to 15 minutes","Only long enough to pick up or drop off passengers or mail","As long as the driver stays in the vehicle"],a:2,e:"White curbs are for brief stops only - just long enough to pick up or drop off passengers or mail.",src:"Handbook S6"},
+  {t:"Right-of-Way",q:"At an uncontrolled intersection two cars arrive at the same time. Who has the right of way?",o:["The driver going straight","The driver on the left","The driver on the right","The driver who arrived first"],a:2,e:"When two vehicles arrive simultaneously at an uncontrolled intersection, the vehicle on the right has the right of way.",src:"Handbook S7"},
+  {t:"Right-of-Way",q:"You are turning left at an intersection. When may you proceed?",o:["Whenever traffic looks light","Only when oncoming traffic and pedestrians have cleared","As soon as the light turns green","When a 3-second gap exists"],a:1,e:"When turning left, you must yield to all oncoming vehicles and pedestrians before proceeding.",src:"Handbook S7"},
+  {t:"Right-of-Way",q:"A pedestrian with a white cane or guide dog is at a crosswalk. You must:",o:["Slow down and proceed carefully","Stop and remain stopped until they have completely crossed","Honk to let them know you are there","Yield only if they have started crossing"],a:1,e:"You must stop and remain stopped for a pedestrian using a white cane or guide dog until they have fully crossed.",src:"CVC 21963"},
+  {t:"Right-of-Way",q:"When an emergency vehicle with sirens and lights approaches, you must:",o:["Only yield if directly behind you","Pull to the right and stop until it passes","Only yield on freeways","Only yield if coming from the opposite direction"],a:1,e:"When an emergency vehicle approaches from any direction, pull to the right edge and stop until it passes.",src:"CVC 21806"},
+  {t:"Right-of-Way",q:"Who has the right of way when merging onto a freeway?",o:["The merging vehicle","Vehicles already on the freeway","Whoever is going faster","The vehicle on the right"],a:1,e:"Vehicles already on the freeway have the right of way. Merging drivers must yield and find a safe gap.",src:"Handbook S7"},
+  {t:"Right-of-Way",q:"You are driving on a two-lane road. A vehicle ahead stops for a pedestrian. You should:",o:["Pass the stopped vehicle carefully","Honk to alert the pedestrian","Not pass - the pedestrian may be in your lane","Flash your lights"],a:2,e:"Never pass a stopped vehicle at a crosswalk - the pedestrian may be stepping into your lane.",src:"Handbook S7"},
+  {t:"Right-of-Way",q:"At a T-intersection with no signs or signals, who has the right of way?",o:["The driver on the through road always","The driver on the terminating road","Whoever arrives first","The driver on the right"],a:0,e:"At a T-intersection, traffic on the through road has the right of way over vehicles on the terminating dead-end road.",src:"Handbook S7"},
+  {t:"Right-of-Way",q:"Two vehicles meet on a steep narrow road and neither can pass. Who must back up?",o:["The vehicle going uphill","The vehicle going downhill","The larger vehicle","The vehicle that arrived last"],a:1,e:"The vehicle facing downhill must back up because it has more control when backing on a hill.",src:"Handbook S7"},
+  {t:"Right-of-Way",q:"While waiting to turn left at an intersection, your wheels should be:",o:["Turned left ready to complete the turn","Turned right as a safety precaution","Pointed straight ahead until it is safe to turn","It does not matter"],a:2,e:"Keep your wheels pointed straight ahead while waiting to turn left. If rear-ended with wheels turned, you could be pushed into oncoming traffic.",src:"Handbook S6"},
+  {t:"DUI & Alcohol Laws",q:"At what BAC are drivers under 21 legally impaired in California?",o:["0.08%","0.04%","0.01%","0.05%"],a:2,e:"Zero-tolerance law: A BAC of 0.01% or higher is illegal for drivers under 21.",src:"CVC 23136"},
+  {t:"DUI & Alcohol Laws",q:"Refusing a chemical test after a lawful DUI arrest results in:",o:["No penalty if you are sober","Mandatory license suspension","Applies to breathalyzer only","Does not apply to drivers over 21"],a:1,e:"Under California implied consent law, refusing a chemical test after a lawful DUI arrest results in mandatory license suspension.",src:"CVC 23612"},
+  {t:"DUI & Alcohol Laws",q:"What is the legal BAC limit for non-commercial drivers 21 and older?",o:["0.04%","0.06%","0.08%","0.10%"],a:2,e:"The legal BAC limit for drivers 21 and older in a non-commercial vehicle is 0.08%.",src:"CVC 23152"},
+  {t:"DUI & Alcohol Laws",q:"What is the legal BAC limit for commercial vehicle drivers?",o:["0.08%","0.04%","0.02%","0.01%"],a:1,e:"Commercial vehicle drivers face a stricter BAC limit of 0.04%.",src:"CVC 23152(d)"},
+  {t:"DUI & Alcohol Laws",q:"An open container of alcohol in a vehicle must be stored:",o:["In the glove compartment","In a bag or box","In the trunk or area not accessible to the driver","It is always illegal to have any open container"],a:2,e:"Open containers of alcohol must be stored in the trunk or an area not accessible to the driver or passengers.",src:"CVC 23225"},
+  {t:"DUI & Alcohol Laws",q:"A DUI conviction stays on your California driving record for how many years?",o:["3 years","5 years","7 years","10 years"],a:3,e:"A DUI conviction stays on your California driving record for 10 years.",src:"Handbook S9"},
+  {t:"DUI & Alcohol Laws",q:"Which of the following can make you impaired even if your BAC is under the legal limit?",o:["Energy drinks","Prescription medications that cause drowsiness","Caffeine","All over-the-counter medications"],a:1,e:"Prescription medications that cause drowsiness or impair judgment can make you an unsafe driver even if your BAC is under 0.08%.",src:"Handbook S9"},
+  {t:"Headlights & Visibility",q:"When must you use your headlights?",o:["Only at night","30 min after sunset to 30 min before sunrise and when visibility is under 1000 feet","Only in fog or rain","Only on highways"],a:1,e:"Headlights required from 30 min after sunset to 30 min before sunrise and whenever visibility is under 1000 feet.",src:"Handbook S5"},
+  {t:"Headlights & Visibility",q:"When driving in fog you should use:",o:["High-beams for maximum visibility","No lights - they reflect off fog","Low-beam headlights or fog lights","Hazard lights and high beams"],a:2,e:"In fog, use low-beam headlights or fog lights. High beams reflect off fog and reduce visibility.",src:"Handbook S8"},
+  {t:"Headlights & Visibility",q:"Dim your high beams when an oncoming vehicle is within how many feet?",o:["200 feet","300 feet","500 feet","1000 feet"],a:2,e:"Dim high-beam headlights to low beams within 500 feet of an oncoming vehicle.",src:"Handbook S5"},
+  {t:"Headlights & Visibility",q:"Dim your high beams when following another vehicle within how many feet?",o:["100 feet","200 feet","300 feet","500 feet"],a:2,e:"Dim high beams within 300 feet of a vehicle you are following.",src:"Handbook S5"},
+  {t:"Headlights & Visibility",q:"When must you turn on headlights while using windshield wipers?",o:["Only in heavy rain","Whenever wipers are in use due to weather","Only at night in rain","Only when visibility drops below 500 feet"],a:1,e:"If you use windshield wipers due to fog, rain, or snow, you must turn on your low-beam headlights.",src:"Handbook S5"},
+  {t:"Headlights & Visibility",q:"It is illegal to drive using only:",o:["Low-beam headlights","High-beam headlights","Parking lights or fog lights alone","Daytime running lights"],a:2,e:"It is illegal to drive using only parking lights or fog lights. You must use regular headlights when required.",src:"Handbook S5"},
+  {t:"Passing & Lane Rules",q:"You may drive in a bike lane:",o:["Anytime if no cyclists are present","No more than 200 feet before making a right turn","To pass slow traffic","Never"],a:1,e:"You may enter a bike lane no more than 200 feet before the corner or driveway to make a right turn.",src:"CVC 21209"},
+  {t:"Passing & Lane Rules",q:"When can you pass on the right?",o:["Whenever the left lane is blocked","When the vehicle ahead is turning left and a lane exists to the right","On any two-lane road","Never"],a:1,e:"You may pass on the right when the vehicle ahead is making a left turn and a usable lane exists to the right.",src:"CVC 21755"},
+  {t:"Passing & Lane Rules",q:"Three-point turns are illegal when:",o:["Always legal on any road","You cannot be seen for 200 feet in both directions","Only illegal in school zones","You should always use a driveway"],a:1,e:"Three-point turns are illegal when visibility is less than 200 feet in either direction, such as on hills or curves.",src:"CVC 22102"},
+  {t:"Passing & Lane Rules",q:"On a freeway you should signal for at least how long before changing lanes?",o:["100 feet","Five seconds","Three seconds","As soon as you move over"],a:1,e:"On a freeway, signal for at least five seconds before changing lanes to give adequate notice.",src:"Handbook S8"},
+  {t:"Passing & Lane Rules",q:"When is it legal to use a carpool HOV lane?",o:["Anytime traffic is heavy","When your vehicle meets the minimum occupancy shown on signs or has a qualifying clean-air sticker","Only during rush hour","Motorcycles may always use HOV lanes"],a:1,e:"HOV lanes require the minimum occupancy posted. Some clean-air vehicles with a qualifying DMV sticker may use them solo.",src:"CVC 21655.5"},
+  {t:"Passing & Lane Rules",q:"Slower drivers on a multi-lane road should use:",o:["Any lane","The lanes closest to the center","The lanes closest to the right curb","The leftmost lane"],a:2,e:"Slower drivers should keep to the right lanes. Left lanes are for passing or faster traffic.",src:"CVC 21654"},
+  {t:"Passing & Lane Rules",q:"A white diamond painted in a lane indicates:",o:["A turning lane","A carpool or HOV lane","A bike lane","A bus-only lane"],a:1,e:"A white diamond marks a carpool HOV lane reserved for vehicles meeting the required occupancy.",src:"CVC 21655.5"},
+  {t:"Passing & Lane Rules",q:"You may cross a double yellow center line:",o:["Never - it is always illegal","To turn left into a driveway or road","To pass a slow vehicle","Only on one-lane roads"],a:1,e:"You may cross a double yellow line to turn left into a driveway or private road. You may not cross it to pass.",src:"CVC 21460"},
+  {t:"Passing & Lane Rules",q:"How far before a turn must you signal on a surface street?",o:["50 feet","100 feet","200 feet","300 feet"],a:1,e:"You must signal at least 100 feet before making a turn on a surface street.",src:"Handbook S5"},
+  {t:"Passing & Lane Rules",q:"You are driving slowly on a two-lane mountain road and 5 or more vehicles are behind you. You should:",o:["Maintain your speed - you have the right of way","Speed up to keep traffic moving","Pull into a turnout area to let the vehicles behind you pass","Use your hazard lights and continue"],a:2,e:"When driving slowly on a two-lane road with 5 or more vehicles behind you where passing is unsafe, you must use a turnout area or lane to allow them to pass.",src:"Handbook S6"},
+  {t:"DMV & Registration",q:"You must notify the DMV within how many days of selling or transferring your vehicle?",o:["5 days","10 days","15 days","30 days"],a:0,e:"You must notify the DMV within 5 days of selling or transferring your vehicle.",src:"Handbook S1"},
+  {t:"DMV & Registration",q:"When you move to California you must get a CA driver's license within:",o:["30 days","60 days","10 days","90 days"],a:2,e:"New California residents must obtain a CA driver's license within 10 days of establishing residency.",src:"Handbook S1"},
+  {t:"DMV & Registration",q:"How often must you renew your California driver's license?",o:["Every 2 years","Every 3 years","Every 5 years","Every 10 years"],a:2,e:"California driver's licenses are renewed every 5 years.",src:"Handbook S4"},
+  {t:"DMV & Registration",q:"You must report a traffic accident to the DMV within how many days if there is injury, death, or damage over $1000?",o:["5 days","10 days","30 days","60 days"],a:1,e:"File an accident report (SR-1) with the DMV within 10 days of an accident involving injury, death, or property damage over $1000.",src:"CVC 16000"},
+  {t:"DMV & Registration",q:"You are allowed how many attempts to pass the knowledge test before you must reapply?",o:["2 attempts","3 attempts","5 attempts","Unlimited attempts"],a:1,e:"You are allowed 3 attempts to pass the knowledge test. After 3 failures you must reapply and pay the fee again.",src:"Handbook S3"},
+  {t:"Freeway Driving",q:"If you miss your freeway exit you should:",o:["Stop on the shoulder and back up","Cut across the painted gore area","Continue to the next exit and turn around","Slow down and wait for a gap"],a:2,e:"Continue to the next exit. Backing up on a freeway or crossing gore areas is illegal and extremely dangerous.",src:"Handbook S8"},
+  {t:"Freeway Driving",q:"A large truck signals to merge into your lane. You should:",o:["Speed up so it cannot merge","Honk to warn the driver","Slow down and allow extra space for the truck to merge safely","Move into another lane immediately"],a:2,e:"Large trucks have significant blind spots. Slowing down and giving the truck space to merge safely is the correct action.",src:"Handbook S7"},
+  {t:"Freeway Driving",q:"Driving too slowly on a freeway is:",o:["Always legal if cautious","Illegal if it impedes the normal flow of traffic","Only illegal in the fast lane","Always legal for new drivers"],a:1,e:"There is no fixed minimum speed, but driving so slowly as to impede the normal flow of traffic is illegal in California.",src:"CVC 22400"},
+  {t:"Freeway Driving",q:"When entering a freeway you should:",o:["Stop and wait for a gap","Accelerate to match freeway traffic speed and merge safely","Enter at 35 mph and gradually speed up","Use the shoulder to build speed"],a:1,e:"Use the on-ramp to match freeway traffic speed, then merge smoothly into a safe gap.",src:"Handbook S8"},
+  {t:"Freeway Driving",q:"You should NOT stop on a freeway except:",o:["When traffic is slow","When you need to check your phone","In a genuine emergency or when directed by law enforcement","When you are tired"],a:2,e:"Never stop on a freeway except in a genuine emergency or when directed by law enforcement.",src:"Handbook S8"},
+  {t:"Emergency Situations",q:"What should you do if your accelerator sticks while driving?",o:["Immediately turn off the ignition","Shift to neutral, brake carefully, and pull off the road","Press the accelerator harder to free it","Pump the brakes rapidly"],a:1,e:"Shift to neutral, apply brakes carefully, pull off the road. Turning off the ignition can lock the steering wheel.",src:"Handbook S8"},
+  {t:"Emergency Situations",q:"Your brakes fail while driving. What should you do first?",o:["Turn off the engine","Pump the brakes rapidly - they may build back up","Immediately steer off the road","Apply the parking brake hard and fast"],a:1,e:"Pump the brakes rapidly first - this can restore hydraulic pressure. If that fails, downshift and use the parking brake gently.",src:"Handbook S8"},
+  {t:"Emergency Situations",q:"If you have a tire blowout while driving you should:",o:["Brake hard immediately","Steer straight, ease off the accelerator gradually, and pull off safely","Turn sharply to the nearest shoulder","Accelerate briefly to stabilize"],a:1,e:"Grip the wheel firmly, steer straight, gradually ease off the accelerator, and pull off the road slowly.",src:"Handbook S8"},
+  {t:"Emergency Situations",q:"You are approaching a green light but traffic is backed up into the intersection. You should:",o:["Proceed - you have right of way on green","Honk and proceed slowly","Not enter if you cannot clear the intersection before the light changes","Turn right instead"],a:2,e:"Do not enter an intersection unless you can get completely across before the signal turns red.",src:"Handbook S7"},
+  {t:"Emergency Situations",q:"If your vehicle starts to skid you should:",o:["Brake hard and steer away from the skid","Steer in the direction you want to go and ease off the accelerator","Accelerate out of the skid","Turn sharply in the opposite direction"],a:1,e:"In a skid, steer in the direction you want to go and ease off the gas. Braking hard can worsen the skid.",src:"Handbook S8"},
+  {t:"Emergency Situations",q:"If your engine stalls on a railroad crossing you should:",o:["Stay in the vehicle and wait for help","Try to restart the engine for up to 3 minutes","Get everyone out and move well away from the tracks immediately","Push the vehicle off the tracks"],a:2,e:"Get everyone out of the vehicle immediately and move well away from the tracks at an angle - not parallel to them.",src:"Handbook S8"},
+  {t:"Sharing the Road",q:"When passing a bicyclist on a road you must give at least:",o:["1 foot","2 feet","3 feet","5 feet"],a:2,e:"California Three Feet for Safety Act (CVC 21760): at least 3 feet of clearance when passing a bicyclist.",src:"CVC 21760"},
+  {t:"Sharing the Road",q:"When a school bus has red lights flashing and stop arm extended on a two-lane road you must:",o:["Slow to 15 mph and proceed","Stop from BOTH directions until lights stop and arm retracts","Only stop if behind the bus","Stop only if children are visible"],a:1,e:"On a two-lane road, ALL traffic in BOTH directions must stop for a school bus with flashing red lights and extended stop arm.",src:"CVC 22454"},
+  {t:"Sharing the Road",q:"On a divided highway with a raised physical divider must you stop for a school bus on the other side?",o:["Yes always stop","No - not required if there is a raised physical divider","Only if the bus is visible","Only during school hours"],a:1,e:"On a divided highway with a physical barrier, you do not need to stop for a school bus in the opposite direction.",src:"CVC 22454"},
+  {t:"Sharing the Road",q:"You are driving through a work zone. You should:",o:["Maintain your normal speed","Slow down, increase following distance, and be prepared to stop","Speed up to get through quickly","Use your horn to alert workers"],a:1,e:"In work zones slow down, stay alert, and increase following distance. Traffic fines are doubled in work zones.",src:"Handbook S8"},
+  {t:"Sharing the Road",q:"When you hear a siren but cannot see the emergency vehicle you should:",o:["Continue at current speed until you see it","Pull over to the right and stop just in case","Speed up to clear the intersection","Flash hazard lights and slow down"],a:1,e:"If you hear a siren but cannot see the vehicle, pull over to the right and stop. It may approach from any direction.",src:"CVC 21806"},
+  {t:"Sharing the Road",q:"Lane splitting by motorcyclists in California is:",o:["Illegal at all times","Legal when traffic is moving slowly and done safely","Legal only on freeways","Legal only if the speed limit is under 65 mph"],a:1,e:"Lane splitting is legal in California when done safely. California is unique among US states in permitting this.",src:"CVC 21658.1"},
+  {t:"Sharing the Road",q:"You hit a parked vehicle and cannot find the owner. You should:",o:["Drive away - it was not your fault","Call police and wait","Leave a note with your name and contact information on the vehicle and report to police","Take a photo and drive away"],a:2,e:"If you hit a parked vehicle and cannot find the owner, you must leave a note with your name, address, and contact info, then report the incident to local police.",src:"CVC 20002"},
+  {t:"Sharing the Road",q:"It is illegal to leave a child 6 years old or younger unattended in a vehicle unless:",o:["You will return in less than 5 minutes","The engine is off","A person at least 12 years old remains with the child","The windows are cracked open"],a:2,e:"You may not leave a child 6 or younger unattended in a vehicle unless supervised by a person who is at least 12 years old.",src:"CVC 15620"},
+  {t:"Distances & Measurements",q:"When parallel parking your wheels must be within how many inches of the curb?",o:["6 inches","12 inches","18 inches","24 inches"],a:2,e:"Your vehicle must be parallel and within 18 inches of the curb.",src:"Handbook S6"},
+  {t:"Distances & Measurements",q:"Stop no closer than how many feet from a railroad crossing when a train is approaching?",o:["10 feet","15 feet","25 feet","50 feet"],a:1,e:"Stop no closer than 15 feet from the nearest rail when a train is approaching.",src:"CVC 22451"},
+  {t:"Distances & Measurements",q:"No parking within how many feet of a fire hydrant?",o:["10 feet","15 feet","20 feet","25 feet"],a:1,e:"CVC 22514: No parking within 15 feet of a fire hydrant.",src:"CVC 22514"},
+  {t:"Distances & Measurements",q:"No parking within how many feet of a crosswalk at an intersection?",o:["10 feet","15 feet","20 feet","25 feet"],a:2,e:"No parking within 20 feet of a crosswalk at an intersection.",src:"Handbook S6"},
+  {t:"Distances & Measurements",q:"You may enter a bike lane no more than how many feet before a right turn?",o:["100 feet","150 feet","200 feet","300 feet"],a:2,e:"You may only enter a bike lane within 200 feet of the corner or driveway where you will turn right.",src:"CVC 21209"},
+  {t:"Distances & Measurements",q:"Dim high beams when an oncoming vehicle is within how many feet?",o:["200 feet","300 feet","500 feet","1000 feet"],a:2,e:"Dim high-beam headlights within 500 feet of an oncoming vehicle.",src:"Handbook S5"},
+  {t:"Distances & Measurements",q:"Dim high beams when following another vehicle within how many feet?",o:["100 feet","200 feet","300 feet","500 feet"],a:2,e:"Dim high beams within 300 feet of a vehicle you are following.",src:"Handbook S5"},
+  {t:"Distances & Measurements",q:"Three-point turns are illegal when you cannot be seen for how many feet in both directions?",o:["100 feet","150 feet","200 feet","300 feet"],a:2,e:"Three-point turns are illegal when visibility is less than 200 feet in either direction.",src:"CVC 22102"},
+  {t:"Distances & Measurements",q:"Stop at least how many feet from a school bus with flashing red lights?",o:["10 feet","20 feet","25 feet","50 feet"],a:1,e:"Stop at least 20 feet away from a school bus with flashing red lights and extended stop arm.",src:"CVC 22454"},
+  {t:"Distances & Measurements",q:"When passing a bicyclist you must give at least how many feet of clearance?",o:["1 foot","2 feet","3 feet","5 feet"],a:2,e:"California Three Feet for Safety Act (CVC 21760): at least 3 feet clearance.",src:"CVC 21760"},
+  {t:"Distances & Measurements",q:"On a freeway signal at least how many seconds before changing lanes?",o:["2 seconds","3 seconds","5 seconds","10 seconds"],a:2,e:"Signal for at least 5 seconds before changing lanes on a freeway.",src:"Handbook S8"},
+  {t:"Distances & Measurements",q:"Headlights are required when visibility drops below how many feet?",o:["500 feet","750 feet","1000 feet","1500 feet"],a:2,e:"Use headlights when it is too dark to see from 1000 feet away.",src:"Handbook S5"},
+  {t:"Distances & Measurements",q:"No parking within how many feet of a railroad crossing?",o:["50 feet","75 feet","100 feet","200 feet"],a:0,e:"Parking is prohibited within 50 feet of the nearest rail of a railroad crossing.",src:"Handbook S6"},
+  {t:"Distances & Measurements",q:"Minimum safe following distance at highway speeds is at least:",o:["1 second","2 seconds","3 seconds","5 seconds"],a:2,e:"The 3-second rule is the minimum safe following distance. Increase to 4-6 seconds in bad weather or with large vehicles.",src:"Handbook S8"},
+  {t:"Distances & Measurements",q:"How far before a turn must you signal on a surface street?",o:["50 feet","100 feet","200 feet","500 feet"],a:1,e:"Signal at least 100 feet before making a turn on a surface street.",src:"Handbook S5"},
+  {t:"Cell Phones & Distractions",q:"Drivers 18 and older may use a cell phone while driving only if:",o:["The call is brief","They use a hands-free device","They are stopped at a red light","The phone is on speaker"],a:1,e:"Drivers 18 and older may only use a cell phone with a hands-free device such as Bluetooth.",src:"CVC 23123"},
+  {t:"Cell Phones & Distractions",q:"Drivers under 18 may use a cell phone while driving:",o:["With a hands-free device only","Only for emergency calls","Not at all - even hands-free is prohibited","Only when parked"],a:2,e:"Drivers under 18 are prohibited from using any wireless device while driving - even hands-free.",src:"CVC 23124"},
+  {t:"Cell Phones & Distractions",q:"Texting while driving is:",o:["Legal if stopped at a red light","Legal if using voice-to-text","Illegal at all times unless the vehicle is lawfully parked","Legal only on freeways"],a:2,e:"Texting while driving is illegal at all times including when stopped at a red light.",src:"CVC 23123.5"},
+  {t:"Cell Phones & Distractions",q:"Which is the most dangerous distraction while driving?",o:["Adjusting the radio","Eating while driving","Texting while driving","Talking to a passenger"],a:2,e:"Texting is the most dangerous because it takes your eyes, hands, and mind off driving simultaneously.",src:"Handbook S5"},
+  {t:"Cell Phones & Distractions",q:"You receive an urgent call while driving without a hands-free device. You should:",o:["Answer quickly and keep it short","Let it go to voicemail and pull over safely to return it","Put it on speaker so your hands are free","Answer only if in the slow lane"],a:1,e:"Let the call go to voicemail. Pull off the road safely to return the call.",src:"CVC 23123"},
+  {t:"Cell Phones & Distractions",q:"Even hands-free cell phone use while driving is dangerous because:",o:["It is illegal in California","It drains your battery","It takes your mental attention away from driving","It requires looking at the screen"],a:2,e:"Even hands-free calls cause cognitive distraction (inattention blindness), reducing your ability to react to hazards.",src:"Handbook S5"},
+  {t:"Roundabouts",q:"In a roundabout traffic travels in which direction?",o:["Clockwise","Counterclockwise","Either direction","Depends on markings"],a:1,e:"In California roundabouts, traffic always travels counterclockwise around the central island.",src:"Handbook S7"},
+  {t:"Roundabouts",q:"When entering a roundabout you must yield to:",o:["No one - you have the right of way","Vehicles already in the roundabout","Vehicles waiting on your right","Pedestrians only"],a:1,e:"When entering a roundabout, always yield to all vehicles already circulating inside.",src:"Handbook S7"},
+  {t:"Roundabouts",q:"If you miss your exit in a roundabout you should:",o:["Stop and back up","Make a U-turn inside","Continue around and take your exit on the next pass","Exit at the nearest available street"],a:2,e:"If you miss your exit, continue around the roundabout and take your exit when you reach it again. Never stop or reverse.",src:"Handbook S7"},
+  {t:"Roundabouts",q:"When driving through a roundabout you should:",o:["Accelerate to keep up with traffic","Maintain a steady slow speed and not stop or pass","Stop if unsure about the exit","Use your horn to signal others"],a:1,e:"Travel at a slow steady speed. Do not stop except to yield at entry and do not pass other vehicles.",src:"Handbook S7"},
+  {t:"Roundabouts",q:"When approaching a roundabout you should:",o:["Accelerate to merge quickly","Slow down, yield to traffic inside, and enter when there is a safe gap","Stop and wait for the roundabout to clear completely","Flash headlights to signal entry"],a:1,e:"Slow down as you approach, yield to all traffic in the roundabout, and enter when there is a safe gap.",src:"Handbook S7"},
+  {t:"Seat Belts & Child Safety",q:"Who is required to wear a seat belt in California?",o:["Only the driver","The driver and front-seat passengers","The driver and ALL passengers","Only passengers under 18"],a:2,e:"California law CVC 27315 requires the driver and ALL passengers to wear seat belts at all times.",src:"CVC 27315"},
+  {t:"Seat Belts & Child Safety",q:"Children under what age must ride in a car seat or booster seat in the back seat?",o:["Under 6","Under 8","Under 10","Under 12"],a:1,e:"Children under 8 must be secured in an appropriate car seat or booster seat in the back seat.",src:"CVC 27360"},
+  {t:"Seat Belts & Child Safety",q:"It is illegal to smoke in a vehicle in California when:",o:["On a freeway","A minor under 18 is in the vehicle","The windows are up","You are in a school zone"],a:1,e:"California law prohibits smoking in a vehicle when a minor under 18 is present, regardless of whether windows are open.",src:"CVC 12700"},
+  {t:"Seat Belts & Child Safety",q:"A child may ride in the front seat when:",o:["They are 8 years or older","They are at least 4 feet 9 inches tall","They have outgrown all child safety seats","All of the above may apply"],a:0,e:"Children 8 and older may ride in the front seat. The back seat is always safer for children.",src:"CVC 27360"},
+  {t:"Seat Belts & Child Safety",q:"Who is responsible if a child under 16 is not wearing a seat belt?",o:["The child","The driver of the vehicle","The parent only","No one unless there is an accident"],a:1,e:"The driver is responsible for ensuring all passengers under 16 are properly restrained.",src:"CVC 27360"},
+  {t:"Seat Belts & Child Safety",q:"A rear-facing car seat must NEVER be placed:",o:["In the back seat","In the center of the back seat","In the front seat if there is an active passenger airbag","In a vehicle without airbags"],a:2,e:"A rear-facing car seat must never be placed in the front seat if an active passenger-side airbag is present.",src:"Handbook S5"},
+  {t:"Fines & Penalties",q:"Traffic fines in work zones are:",o:["The same as normal violations","Doubled","Tripled","Reduced if work is not in progress"],a:1,e:"Traffic fines are doubled in California construction or work zones, even if workers are not present.",src:"CVC 42009"},
+  {t:"Fines & Penalties",q:"What happens if you accumulate too many points on your driving record?",o:["Nothing - points are for record only","Your license may be suspended or revoked","You pay a fine only","You must retake the written test"],a:1,e:"California point system CVC 12810: Too many points such as 4 in 12 months can result in suspension or revocation.",src:"CVC 12810"},
+  {t:"Fines & Penalties",q:"You must report a traffic accident to the DMV within how many days?",o:["5 days","10 days","30 days","60 days"],a:1,e:"File a Report of Traffic Accident (SR-1) within 10 days of an accident involving injury, death, or property damage over $1000.",src:"CVC 16000"},
+  {t:"Fines & Penalties",q:"If you are involved in an accident you must:",o:["Leave if damage appears minor","Stop, exchange information, and report it if required","Only stop if you caused the accident","Call police only if someone is hurt"],a:1,e:"You must stop, exchange driver and insurance information, and report the accident if required.",src:"CVC 20001"},
+  {t:"Fines & Penalties",q:"Driving without a valid driver's license can result in:",o:["A warning only","A fine and possible vehicle impoundment","Loss of registration only","An automatic court appearance"],a:1,e:"Driving without a valid license CVC 12500 can result in a fine and your vehicle being impounded.",src:"CVC 12500"},
+  {t:"Fines & Penalties",q:"A DUI conviction stays on your California driving record for:",o:["3 years","5 years","7 years","10 years"],a:3,e:"A DUI conviction stays on your California driving record for 10 years.",src:"Handbook S9"},
+  {t:"Fines & Penalties",q:"Illegally passing a stopped school bus is:",o:["An infraction with a small fine","A misdemeanor with significant fines and points","Only illegal if children are visible","Legal if you slow to 15 mph"],a:1,e:"Illegally passing a school bus is a misdemeanor. Fines start at $1000 for a first offense plus 1 point on your record.",src:"CVC 22454"},
+  {t:"Adverse Weather",q:"When driving in heavy rain you should:",o:["Maintain your normal highway speed","Increase following distance and reduce speed","Turn on hazard lights and drive normally","Use high-beam headlights for better visibility"],a:1,e:"In heavy rain, slow down and increase your following distance. Rain reduces traction and visibility.",src:"Handbook S8"},
+  {t:"Adverse Weather",q:"Hydroplaning occurs when:",o:["Your tires overheat on a hot road","A layer of water builds under your tires causing loss of traction","Your windshield fogs up in rain","Your brakes get wet and fail"],a:1,e:"Hydroplaning happens when water builds up under your tires faster than it can be displaced, causing loss of road contact.",src:"Handbook S8"},
+  {t:"Adverse Weather",q:"If your vehicle begins to hydroplane you should:",o:["Brake hard to slow down","Accelerate to spin the water away","Ease off the gas and steer straight until tires regain traction","Turn sharply to the dry lane"],a:2,e:"If hydroplaning, ease off the accelerator gently and steer straight. Braking or turning sharply can cause a skid.",src:"Handbook S8"},
+  {t:"Adverse Weather",q:"When driving on steep mountain grades to save your brakes you should:",o:["Pump the brakes frequently","Downshift to a lower gear","Use your parking brake on descents","Shift to neutral on downhill slopes"],a:1,e:"Downshift to a lower gear on steep descents. Engine braking controls speed and reduces wear on your brakes.",src:"Handbook S8"},
+  {t:"Adverse Weather",q:"When should you use tire chains in California?",o:["Anytime it is raining heavily","When snow or ice is present and chain controls R-1 R-2 or R-3 are posted","Only on mountain roads above 5000 feet","Chains are never legal in California"],a:1,e:"Tire chains or snow tires are required when Caltrans posts chain controls R-1, R-2, or R-3 on mountain highways due to snow or ice.",src:"Handbook S8"},
+  {t:"Adverse Weather",q:"When visibility drops below 100 feet due to fog you should:",o:["Turn on your high beams","Maintain speed so other drivers can track you","Pull completely off the road and turn on your hazard lights until conditions improve","Continue slowly using low beams only"],a:2,e:"If fog becomes too thick to drive safely, pull completely off the road, turn on your emergency flashers, and wait for conditions to improve.",src:"Handbook S8"},
+  {t:"Tricky Questions",q:"A blind pedestrian at a crosswalk pulls their cane back and steps AWAY from the intersection. This means:",o:["They are about to cross - yield immediately","They are signaling that you may proceed","They need help and you should stop","They do not see your vehicle - stop and honk"],a:1,e:"When a blind pedestrian pulls in their cane and steps away from the intersection, this gesture usually means you may go. Always remain cautious.",src:"Handbook S7"},
+  {t:"Tricky Questions",q:"You are driving 65 mph on a freeway where others are going 70 mph. You should:",o:["Speed up to 70 mph to match traffic flow","Stay at 65 mph - that is the posted maximum","Drive between 65 and 70 mph to match traffic","Speed up to 70 mph since the Basic Speed Law allows it"],a:1,e:"You may never exceed the posted speed limit. Even if traffic is flowing at 70 mph, you must stay at or under the 65 mph posted limit.",src:"CVC 22349"},
+  {t:"Tricky Questions",q:"You are turning right from a two-lane one-way street. You must turn from:",o:["The left lane","The center lane","The lane closest to the right curb","Either lane if safe"],a:2,e:"You must begin and end a right turn in the lane closest to the right curb.",src:"Handbook S6"},
+  {t:"Tricky Questions",q:"You are turning left from a two-lane one-way street. You must turn from:",o:["The lane closest to the right curb","Any lane if you signal","The lane closest to the center divider","The center lane"],a:2,e:"When turning left on a one-way street, you must begin the turn from the lane closest to the left side.",src:"Handbook S6"},
+  {t:"Tricky Questions",q:"A motorcycle's turn signal stays on after a turn. You should:",o:["Pass the motorcycle - the signal is stuck","Assume the motorcycle will turn again soon","Not assume the motorcycle will turn - wait until it actually does","Honk to alert the rider"],a:2,e:"Motorcycles often do not have self-canceling turn signals. Do NOT assume a motorcycle will turn just because its signal is on.",src:"Handbook S7"},
+  {t:"Tricky Questions",q:"You are in an intersection waiting to turn left when the signal turns yellow. You should:",o:["Abandon the turn and back out of the intersection","Stop in the intersection until the next green light","Complete your turn - you were already in the intersection lawfully","Immediately turn right instead"],a:2,e:"If you entered the intersection on green and are waiting to turn left when it turns yellow, complete your turn when it is safe.",src:"Handbook S7"},
+  {t:"Tricky Questions",q:"When can you make a U-turn in a residential district?",o:["Never - U-turns are illegal everywhere in California","Only at designated U-turn signs","When no vehicle is approaching within 200 feet and it is safe","Only at traffic-light-controlled intersections"],a:2,e:"In a residential district, you may make a U-turn if no vehicle is approaching within 200 feet and the turn can be completed safely.",src:"CVC 22102"},
+  {t:"Tricky Questions",q:"You are on a one-way street parking uphill. Which side do you park on and which way do wheels face?",o:["Right side only - wheels right","Left side only - wheels left","Either side - wheels AWAY from the nearest curb","Either side - wheels TOWARD the nearest curb"],a:2,e:"On a one-way street you may park on either side. When parking uphill, turn wheels away from the nearest curb regardless of which side you park on.",src:"Handbook S6"},
+  {t:"Tricky Questions",q:"You are already in the intersection when an emergency vehicle with lights approaches. You should:",o:["Stop immediately in the intersection","Continue through the intersection then pull to the right and stop","Reverse out of the intersection","Turn right at the intersection to get out of the way"],a:1,e:"If you are already in the intersection when an emergency vehicle approaches, continue through the intersection, then drive to the right and stop.",src:"Handbook S7"},
+  {t:"Tricky Questions",q:"You parked legally but when you return a No Parking sign was placed while you were gone. You:",o:["Must move your vehicle immediately","Are not responsible - the sign was not there when you parked","Can leave your vehicle for up to 30 more minutes","Must move your vehicle within 1 hour"],a:0,e:"Even if a sign is placed after you park, you must comply and move your vehicle as soon as you return.",src:"Handbook S6"},
+  {t:"Tricky Questions",q:"Which of the following is true about right turns at a red light in California?",o:["Always allowed after stopping","Allowed after stopping UNLESS a No Turn on Red sign is posted","Never allowed at a red light","Allowed only between 6am and 10pm"],a:1,e:"You may turn right at a red light after a complete stop and yielding to pedestrians and cross traffic - UNLESS a No Turn on Red sign is posted. You may also NOT turn right on a red ARROW.",src:"Handbook S7"}
+];
+
+// ── CONSTANTS ──────────────────────────────────────────────────────────────────
+var COLORS={
+  "Speed Limits":"#2563eb","Traffic Signals & Signs":"#7c3aed","Road Signs":"#0d9488",
+  "Parking Rules":"#0891b2","Curb Colors":"#0369a1","Right-of-Way":"#d97706",
+  "DUI & Alcohol Laws":"#dc2626","Headlights & Visibility":"#f59e0b",
+  "Passing & Lane Rules":"#059669","DMV & Registration":"#6b7280",
+  "Freeway Driving":"#0ea5e9","Emergency Situations":"#ef4444",
+  "Sharing the Road":"#16a34a","Distances & Measurements":"#be185d",
+  "Cell Phones & Distractions":"#7c2fbf","Roundabouts":"#0891b2",
+  "Seat Belts & Child Safety":"#15803d","Fines & Penalties":"#b45309",
+  "Adverse Weather":"#1d4ed8","Tricky Questions":"#9f1239"
+};
+var TOPICS=[...new Set(Q.map(function(q){return q.t;}))];
+function col(t){return COLORS[t]||"#2563eb";}
+function shuffle(a){return a.slice().sort(function(){return Math.random()-.5;});}
+function $(id){return document.getElementById(id);}
+function on(el,ev,fn){if(el)el.addEventListener(ev,fn);}
+
+// ── LOCAL STORAGE ──────────────────────────────────────────────────────────────
+var SK="ca_dmv_progress";
+function saveProgress(){
+  try{
+    localStorage.setItem(SK,JSON.stringify({
+      idx:qs.map(function(q){return Q.indexOf(q);}),
+      cur:cur,score:score,
+      mis:mistakes.map(function(m){return{qi:Q.indexOf(m),si:m.si};}),
+      lbl:label,ts:Date.now()
+    }));
+  }catch(e){}
+}
+function loadProgress(){
+  try{
+    var d=JSON.parse(localStorage.getItem(SK));
+    if(!d||typeof d.cur!=="number")return null;
+    var rq=[];
+    for(var i=0;i<d.idx.length;i++){var q=Q[d.idx[i]];if(q)rq.push(q);}
+    if(!rq.length)return null;
+    var rm=[];
+    if(d.mis){for(var j=0;j<d.mis.length;j++){var mq=Q[d.mis[j].qi];if(mq)rm.push(Object.assign({},mq,{si:d.mis[j].si}));}}
+    return{qs:rq,cur:d.cur,score:d.score,mistakes:rm,label:d.lbl||"All "+Q.length+" Questions"};
+  }catch(e){return null;}
+}
+function clearProgress(){try{localStorage.removeItem(SK);}catch(e){}}
+function hasProgress(){
+  try{var d=JSON.parse(localStorage.getItem(SK));return d&&d.cur>0&&d.cur<Q.length;}catch(e){return false;}
+}
+
+// ── STATE ──────────────────────────────────────────────────────────────────────
+var screen="menu",activeTab="quiz",qs=[],label="",cur=0,sel=null,score=0,
+    mistakes=[],showM=false,expIdx=null,isPartial=false,showCancelModal=false,
+    isPausable=false,savedState=null;
+
+// ── CORE FUNCTIONS ─────────────────────────────────────────────────────────────
+function startQuiz(arr,lbl,pausable){
+  isPausable=(pausable===true);
+  if(isPausable){
+    var st=loadProgress();
+    if(st&&st.cur>0&&st.cur<st.qs.length){
+      var rem=st.qs.length-st.cur;
+      if(confirm("Saved session found: Q"+st.cur+" done, "+rem+" remaining, score "+st.score+".\n\nOK = Resume  |  Cancel = Start Fresh")){
+        qs=st.qs;label=st.label;cur=st.cur;score=st.score;mistakes=st.mistakes.slice();
+        sel=null;isPartial=false;showCancelModal=false;savedState=null;
+        screen="quiz";renderQuiz();return;
+      }else{savedState=null;clearProgress();}
+    }else{clearProgress();}
+  }
+  qs=shuffle(arr);label=lbl;cur=0;sel=null;score=0;mistakes=[];
+  showM=false;expIdx=null;isPartial=false;showCancelModal=false;
+  screen="quiz";renderQuiz();
+}
+function pick(i){
+  if(sel!==null||showCancelModal)return;
+  sel=i;
+  if(i===qs[cur].a)score++;
+  else mistakes.push(Object.assign({},qs[cur],{si:i}));
+  if(isPausable)saveProgress();
+  renderQuiz();
+}
+function next(){
+  if(cur+1>=qs.length){
+    isPartial=false;
+    if(isPausable)clearProgress();
+    screen="results";renderResults();
+  }else{
+    cur++;sel=null;
+    if(isPausable)saveProgress();
+    renderQuiz();
+  }
+}
+function cancelTest(){showCancelModal=true;renderQuiz();}
+function keepGoing(){showCancelModal=false;renderQuiz();}
+function endEarly(){
+  showCancelModal=false;isPartial=true;
+  savedState=null;clearProgress();
+  screen="results";renderResults();
+}
+
+// ── CHEAT SHEET DATA ───────────────────────────────────────────────────────────
+var CS=[
+  {icon:"&#128663;",title:"Speed Limits - Key Numbers",rows:[
+    {k:"Alley",v:"15 mph"},{k:"Blind intersection (no signs)",v:"15 mph"},
+    {k:"Railroad crossing (limited view)",v:"15 mph within 100 ft"},
+    {k:"School zone",v:"25 mph (20 mph where newly adopted)"},
+    {k:"Residential / Business district",v:"25 mph if not posted"},
+    {k:"Two-lane undivided road (rural)",v:"55 mph if not posted"},
+    {k:"Most freeways",v:"65 mph (70 mph where posted)"},
+    {k:"Basic Speed Law",v:"Never faster than safe for conditions - always applies"}
+  ],tip:"TRICK: The Basic Speed Law ALWAYS overrides the posted limit. Even at 65 mph posted, MUST slow in bad weather."},
+  {icon:"&#128663;",title:"Parking on Hills - Wheel Direction",rows:[
+    {k:"Uphill + curb present",v:"Wheels AWAY from curb (left)"},
+    {k:"Downhill + curb present",v:"Wheels TOWARD curb (right)"},
+    {k:"No curb (uphill OR downhill)",v:"Wheels to the RIGHT (toward road edge)"},
+    {k:"Always",v:"Set parking brake and leave in Park or gear"}
+  ],tip:"MEMORY TRICK: Uphill = Away. Downhill = toward curb. No curb = always right."},
+  {icon:"&#127912;",title:"Curb Colors - Quick Reference",rows:[
+    {k:"RED",v:"No stopping / standing / parking - EVER"},
+    {k:"YELLOW",v:"Load/unload only - driver must STAY with vehicle"},
+    {k:"WHITE",v:"Passengers or mail drop-off only - brief stop"},
+    {k:"GREEN",v:"Time-limited parking - check posted time"},
+    {k:"BLUE",v:"Disabled persons only - valid placard or plate required"}
+  ],tip:"TRICK: Yellow = driver stays. White = passenger drop-off. Easy to mix up!"},
+  {icon:"&#128207;",title:"Critical Distances to Memorize",rows:[
+    {k:"Fire hydrant",v:"15 ft (no parking)"},{k:"Crosswalk at intersection",v:"20 ft (no parking)"},
+    {k:"Railroad crossing - stop",v:"15 ft minimum from nearest rail"},
+    {k:"Railroad crossing - parking",v:"50 ft (no parking)"},{k:"School bus - stop distance",v:"20 ft minimum"},
+    {k:"Parallel parking from curb",v:"Within 18 inches"},{k:"Bike lane entry before turn",v:"Within 200 ft"},
+    {k:"Dim high beams - oncoming",v:"500 ft"},{k:"Dim high beams - following",v:"300 ft"},
+    {k:"Signal before turn (surface)",v:"100 ft"},{k:"Signal before freeway lane change",v:"5 seconds"},
+    {k:"Bicycle clearance when passing",v:"3 ft minimum"},{k:"3-point turn visibility needed",v:"200 ft both directions"},
+    {k:"Headlights on - visibility under",v:"1000 ft"},{k:"Safe following distance",v:"3 seconds (more in bad weather)"}
+  ],tip:"TRICK: 15 ft = fire hydrant and railroad stop. 20 ft = crosswalk and school bus. 50 ft = railroad parking."},
+  {icon:"&#127867;",title:"Alcohol and BAC Limits",rows:[
+    {k:"Drivers under 21",v:"0.01% - zero tolerance"},
+    {k:"Drivers 21+ (non-commercial)",v:"0.08%"},
+    {k:"Commercial vehicle drivers",v:"0.04%"},
+    {k:"DUI on record",v:"10 years"},
+    {k:"Refuse chemical test",v:"Mandatory license suspension (implied consent)"},
+    {k:"Open container",v:"Must be in trunk or inaccessible area"}
+  ],tip:"TRICK: Under 21 = 0.01 (zero tolerance). Commercial = half the regular limit (0.04)."},
+  {icon:"&#128678;",title:"Right-of-Way Rules",rows:[
+    {k:"Uncontrolled intersection (tie)",v:"Yield to vehicle on the RIGHT"},
+    {k:"T-intersection (no signs)",v:"Through road has right of way"},
+    {k:"Steep narrow road (neither can pass)",v:"Vehicle facing DOWNHILL backs up"},
+    {k:"Turning left",v:"Yield to ALL oncoming traffic and pedestrians"},
+    {k:"Waiting to turn left",v:"Keep wheels STRAIGHT until safe to turn"},
+    {k:"Emergency vehicle (any direction)",v:"Pull right and stop"},
+    {k:"Freeway merge",v:"Freeway traffic has right of way"},
+    {k:"Motorcycle signal left on",v:"Do NOT assume it will turn - wait to confirm"}
+  ],tip:"TRICK: Wheel straight while waiting to turn left. If rear-ended with wheels turned, could be pushed into traffic."},
+  {icon:"&#128652;",title:"School Bus and Children Rules",rows:[
+    {k:"School bus red lights - 2-lane road",v:"ALL traffic BOTH directions must stop"},
+    {k:"School bus - divided highway",v:"Opposite direction does NOT need to stop"},
+    {k:"Stop distance from school bus",v:"At least 20 feet"},
+    {k:"Child seat - back seat required",v:"Under 8 years old"},
+    {k:"Rear-facing seat - NEVER in front",v:"If active passenger airbag is present"},
+    {k:"Child unattended in vehicle",v:"Illegal if under 6 - unless supervised by 12+"},
+    {k:"Seat belts",v:"ALL occupants - driver responsible for under 16s"}
+  ],tip:"TRICK: Two-lane road = both directions stop. Divided highway = opposite side may continue."},
+  {icon:"&#128241;",title:"Cell Phone and Distraction Laws",rows:[
+    {k:"Drivers 18+",v:"Hands-free only (Bluetooth, speakerphone mount)"},
+    {k:"Drivers under 18",v:"NO phone use at all - even hands-free"},
+    {k:"Texting while driving",v:"Illegal at ALL times including red lights"},
+    {k:"Most dangerous distraction",v:"Texting - eyes and hands and mind off road"}
+  ],tip:"TRICK: Under 18 = zero phone use. Stopped at red light does NOT make texting legal."},
+  {icon:"&#128260;",title:"U-Turns - When Legal",rows:[
+    {k:"Residential district",v:"Legal if no vehicle within 200 ft and safe"},
+    {k:"Business district",v:"Only at intersections unless signed"},
+    {k:"Across double yellow line",v:"Legal to turn left into driveway - NOT to pass"},
+    {k:"Roundabouts",v:"No U-turns - continue around to your exit"}
+  ],tip:"TRICK: U-turns in residential = 200 ft rule. U-turns to pass across double yellow = always illegal."},
+  {icon:"&#9888;",title:"Tricky Questions People Miss Most",rows:[
+    {k:"Solid + broken yellow line",v:"ONLY the driver beside the BROKEN line may pass"},
+    {k:"Traffic light not working",v:"Treat as 4-way STOP sign"},
+    {k:"Already in intersection on left turn when yellow",v:"COMPLETE the turn safely"},
+    {k:"In intersection when emergency vehicle arrives",v:"Clear intersection FIRST then pull right"},
+    {k:"Blind pedestrian pulls cane back",v:"Usually means you may GO"},
+    {k:"Freeway traffic at 70 mph (posted 65)",v:"Stay at 65 - posted limit always applies"},
+    {k:"Right turn on red",v:"Allowed after full stop UNLESS No Turn on Red sign"},
+    {k:"Right turn on red ARROW",v:"NEVER allowed"},
+    {k:"Turnout lane (5+ cars behind you on mountain road)",v:"You MUST use it to let others pass"}
+  ],tip:"These are the questions that trip up the most test-takers. Review each one carefully!"}
+];
+
+// ── DRIVING GUIDE DATA ─────────────────────────────────────────────────────────
+var DG=[
+  {icon:"&#128678;",title:"Intersections - Who Gives Way to Whom",color:"#2563eb",cards:[
+    {title:"The Basic Priority Order at Any Intersection",rules:["Pedestrians always have priority - yield even if they cross illegally","Cyclists in a bike lane have priority over turning vehicles","Vehicles already in the intersection have priority over those entering","The vehicle that arrived first has priority at uncontrolled intersections","When two arrive simultaneously: yield to the vehicle on your RIGHT","Left-turning vehicles always yield to oncoming straight-through traffic","Vehicles on through roads have priority over vehicles on dead-end roads at T-intersections"]},
+    {title:"Green Light Does NOT Mean Safe to Go",rules:["Always scan left-right-left before entering, even on a green light","Pedestrians still have the right of way even when you have a green light","Do not enter the intersection if you cannot clear it before the light turns red","Wait 1-2 seconds after a light turns green - a car may be running the red","Never assume the cross traffic has stopped"]},
+    {title:"4-Way Stop Rules",rules:["Whoever arrives FIRST goes first - regardless of direction","If two arrive at the same time, yield to the vehicle on your RIGHT","If directly opposite and both going straight, both may go simultaneously","If directly opposite and one is turning left, the left-turning driver yields","Make eye contact and use hand gestures when order is unclear"]}
+  ]},
+  {icon:"&#128663;",title:"Must-Know Car Interior Controls",color:"#0891b2",cards:[
+    {title:"Dashboard Warning Lights - Never Ignore These",rules:["RED oil can symbol - Oil pressure critical. Stop driving immediately, check oil level","RED battery symbol - Charging system failure. Drive to nearest service station","RED temperature gauge - Engine overheating. Pull over, turn off engine, wait 30 min before opening hood","YELLOW engine symbol (Check Engine) - Emission or engine fault. Drive cautiously, get it checked soon","YELLOW exclamation in circle - Low tire pressure (TPMS). Check all tires when safe","ABS light - Anti-lock brake system fault. Brakes still work but ABS may not. Get serviced","Airbag/SRS light - Airbag system fault. Get serviced - airbags may not deploy in a crash"]},
+    {title:"Controls Every Driver Should Know Before Moving",rules:["Hazard lights (triangle button) - Use when stopped on road or in an emergency","Defrost (front and rear) - Clear condensation before driving, not while driving","Mirrors - Adjust all three (left, right, rearview) before every drive","Headlight switch - Know the difference between auto, DRL, low beam, high beam","Emergency brake / parking brake - Location varies by model (pedal, hand lever, or button)","Blind spot mirrors - Use convex add-on mirrors or check blind spot by turning your head"]},
+    {title:"Modern Technology Aids - Use Them Wisely",rules:["Backup camera - Helpful but always physically check rear before reversing","Lane departure warning - Alerts you if drifting; do not rely on it for lane discipline","Adaptive cruise control - Maintains distance from car ahead; you are still responsible for braking","Blind spot monitoring - Alerts to vehicles beside you; always still check before changing lanes","GPS/Navigation - Set destination before moving; never interact with screen while driving"]}
+  ]},
+  {icon:"&#127749;",title:"Driving in Different Weather Conditions",color:"#1d4ed8",cards:[
+    {title:"Rain",rules:["Slow down - wet roads reduce stopping distance by up to 3x","Turn on low-beam headlights whenever wipers are in use (California law)","Increase following distance to at least 5-6 seconds","If hydroplaning: ease off the gas gently, steer straight, do NOT brake hard","Brake earlier and more gently than usual on wet roads","Avoid sudden steering - wet roads reduce cornering grip significantly"]},
+    {title:"Fog",rules:["Use low-beam headlights or fog lights - never high beams (light bounces back)","Slow down significantly - you should be able to stop within your visible distance","Use the right edge of the road as a guide rather than oncoming headlights","If too thick to see: pull OFF the road completely, turn on hazard lights, and wait","Do not stop on the road shoulder where moving traffic might hit you"]},
+    {title:"Snow and Ice",rules:["Accelerate and decelerate very slowly - sudden inputs cause spinning on ice","Increase following distance to 8-10 seconds on snow, up to 15 seconds on ice","Do not use cruise control on snow or ice - it can cause dangerous acceleration","Bridges and overpasses freeze first - always approach them with caution","California chain controls: R-1 = snow tires or chains required. R-2 = chains required. R-3 = chains required on all vehicles","Clear all snow from your vehicle before driving - snow flying off is a hazard"]},
+    {title:"Bright Sunlight and Glare",rules:["Keep sunglasses in your vehicle - glare impairs visibility as much as fog","Use sun visor and tilt it to block low-angle sun","Look toward the right edge of the lane, not directly into oncoming headlights","Be extra cautious at dawn and dusk - sun angles are most dangerous then"]}
+  ]},
+  {icon:"&#127961;",title:"California-Specific Rules You Must Know",color:"#9f1239",cards:[
+    {title:"Rules Unique to California or Stricter Here",rules:["Lane splitting (motorcycles riding between lanes) is LEGAL when done safely - CVC 21658.1","Move Over law (2026 update): slow down AND change lanes for ANY stopped vehicle with hazard lights on - not just emergency vehicles","Ignition Interlock Devices (IID) now required for ALL DUI convictions including first offenses (2026)","Automated speed and red-light camera enforcement is expanding in 2026","License plate obstruction is now a $1,000 fine - no covers, sprays, or devices that block plate readers","School zone speed limit: 25 mph now; communities may adopt 20 mph early; statewide 20 mph takes effect 2031"]},
+    {title:"HOV and Carpool Lanes",rules:["Most HOV lanes require 2 occupants minimum - some require 3 during peak hours","You may enter/exit an HOV lane only at designated openings (broken white line sections)","Do NOT cross a solid white line to enter or exit an HOV lane - it is illegal","Some clean-air vehicles with a qualifying DMV Clean Air sticker may drive solo","HOV lane fines start at $490+ in California"]},
+    {title:"Driving Compared to Other US States",rules:["Right on red: legal in CA and most US states after a stop; illegal in New York City by default","Lane splitting: only legal in California among all 50 US states","Hands-free phone law: CA is stricter than most states - under 18 cannot use even hands-free","Move Over law: CA 2026 expanded to cover ALL hazard-light vehicles; most states only cover emergency vehicles"]}
+  ]},
+  {icon:"&#128739;",title:"Defensive Driving - Real-World Skills",color:"#059669",cards:[
+    {title:"The SIPDE Process",rules:["S - Scan: continuously sweep eyes 10-15 seconds ahead, not just the car in front","I - Identify: spot potential hazards early (pedestrians, merging traffic, debris)","P - Predict: anticipate what could go wrong before it happens","D - Decide: choose the best response - speed change, lane change, or stop","E - Execute: carry out your decision smoothly and safely"]},
+    {title:"Space Management",rules:["Front buffer: minimum 3 seconds behind the vehicle ahead; 5-6 seconds in rain or heavy traffic","Side buffer: avoid driving beside vehicles for long periods - you are in their blind spot","Rear buffer: check mirrors every 5-8 seconds; if tailgated, increase your front buffer","Large trucks have 4 blind spots: directly in front, directly behind, and both sides - avoid all of them"]},
+    {title:"Night Driving Best Practices",rules:["Never drive faster than your headlights - you need to stop within the lit distance ahead","Use high beams on open roads with no oncoming traffic","Dim headlights 500 ft before oncoming vehicles, 300 ft when following","Be extra alert for pedestrians, cyclists, and animals - much harder to see at night","If blinded by oncoming high beams: look toward the right edge of the lane, not at the lights"]}
+  ]},
+  {icon:"&#128295;",title:"Vehicle Maintenance for Safe Driving",color:"#b45309",cards:[
+    {title:"Before Every Drive - 30-Second Check",rules:["Mirrors - adjusted properly for your seating position","Seat position - you should comfortably reach pedals and see over the hood","Seat belt - fastened, not twisted","Headlights - on if needed (dark, rain, or low visibility)","Clear all windows - no obstructed view from frost, condensation, or objects"]},
+    {title:"Weekly Checks",rules:["Tire pressure - check when cold; find correct PSI on door jamb sticker (not the tire itself)","Tread depth - use a penny (Lincoln head disappears = at least 2/32 tread remaining)","Engine oil - check on level ground with engine off and cooled; oil should be between MIN and MAX marks","Washer fluid - low fluid means you cannot clear rain, mud, or insects quickly","Lights - walk around and check all lights work including turn signals and brake lights"]}
+  ]},
+  {icon:"&#128680;",title:"What to Do in an Accident or Emergency",color:"#ef4444",cards:[
+    {title:"Immediately After a Collision",rules:["Stop immediately - leaving the scene is a crime (hit-and-run), even for minor damage","Check for injuries - call 911 if anyone is hurt before doing anything else","Move vehicles off the road if they are drivable and it is safe to do so","Turn on hazard lights and set out warning triangles or flares if you have them","Do NOT admit fault at the scene - say only what is necessary to exchange information"]},
+    {title:"Information You MUST Exchange",rules:["Full name and current address","Driver's license number","Vehicle license plate number","Insurance company name and policy number","Vehicle make, model, and year","Contact information for any witnesses"]},
+    {title:"When to Report the Accident",rules:["Call 911 immediately if there are injuries or fatalities","File DMV SR-1 report within 10 days if injury, death, or damage over $1,000","If you hit a parked car and cannot find the owner: leave a note then report to local police","Notify your insurance company promptly regardless of who is at fault"]}
+  ]},
+  {icon:"&#128161;",title:"Good Habits Every Driver Should Build",color:"#7c3aed",cards:[
+    {title:"Pre-Drive Routine",rules:["Never drive impaired - alcohol, drugs, medications that cause drowsiness, or extreme fatigue","Plan your route before moving - do not interact with GPS while driving","Adjust seat, mirrors, steering wheel, and climate before moving - not at red lights","Always wear your seatbelt - it is the single most effective safety device in your car"]},
+    {title:"While Driving",rules:["Keep both hands on the wheel in a relaxed grip - hands at 9 and 3 o'clock position","Scan intersections early - look left, right, left before entering any intersection","Use turn signals every single time - including in parking lots and driveways","Keep music at a level where you can hear horns, sirens, and your own tires","Stay out of other drivers' blind spots - if you cannot see their mirror, they cannot see you","After a stop sign or red light, wait 1-2 seconds before moving - check that cross traffic has stopped"]},
+    {title:"Eco and Fuel-Efficient Driving Tips",rules:["Accelerate gently from stops - aggressive acceleration burns 30-40% more fuel","Maintain steady speed on highways - use cruise control where safe","Anticipate stops - ease off the gas early instead of braking hard at the last moment","Keep tires properly inflated - every 10 PSI underinflation reduces fuel economy by 2-3%","Avoid idling more than 1 minute - modern engines are more fuel-efficient restarting than idling"]}
+  ]}
+];
+
+// ── RENDER HOME ────────────────────────────────────────────────────────────────
+function renderHome(){
+  var i,si,body,chev,open;
+  var counts={};
+  Q.forEach(function(q){counts[q.t]=(counts[q.t]||0)+1;});
+
+  var sets=[
+    {label:"All "+Q.length+" Questions",   sub:"Complete shuffled practice - all topics",              filter:null,    color:"#16a34a",pausable:true},
+    {label:"Random 10 Questions",          sub:"10 random questions from all topics",                  filter:"r10",   color:"#8b5cf6",pausable:false},
+    {label:"Hardest Questions",            sub:"DUI, Emergency, Fines and Adverse Weather",            filter:["DUI & Alcohol Laws","Emergency Situations","Fines & Penalties","Adverse Weather"],color:"#dc2626",pausable:false},
+    {label:"Tricky and Commonly Missed",   sub:"Questions that trip up most test-takers",              filter:["Tricky Questions"],color:"#9f1239",pausable:false},
+    {label:"Signs and Signals",            sub:"Road Signs + Traffic Signals - about 25% of real exam",filter:["Road Signs","Traffic Signals & Signs"],color:"#0d9488",pausable:false},
+    {label:"Numbers and Distances",        sub:"Every distance and measurement question",              filter:["Distances & Measurements"],color:"#be185d",pausable:false},
+    {label:"Parking and Curb Colors",      sub:"All parking rules and curb color questions",           filter:["Parking Rules","Curb Colors"],color:"#0891b2",pausable:false}
+  ];
+  for(i=0;i<sets.length;i++){
+    var s=sets[i];
+    if(!s.filter)s.count=Q.length;
+    else if(s.filter==="r10")s.count=10;
+    else s.count=Q.filter(function(q){return s.filter.indexOf(q.t)>-1;}).length;
+  }
+
+  var icons=["&#127919;","&#127922;","&#128293;","&#129527;","&#128678;","&#128207;","&#128663;"];
+  var setsHTML="";
+  for(i=0;i<sets.length;i++){
+    var s=sets[i];
+    var badge='<span style="display:inline-block;background:'+s.color+'18;color:'+s.color+';border-radius:99px;font-size:10px;font-weight:700;padding:1px 8px;margin-left:6px;vertical-align:middle">'+s.count+' q</span>';
+    var pnote=s.pausable?'<span style="font-size:10px;color:'+s.color+';margin-top:3px;display:block">&#9208; Pause and resume supported</span>':'';
+    setsHTML+='<button class="bfull" style="border-color:'+s.color+'" data-si="'+i+'"><div class="lbl" style="color:'+s.color+'">'+icons[i]+' '+s.label+badge+'</div><div class="sub">'+s.sub+'</div>'+pnote+'</button>';
+  }
+
+  var topicHTML="";
+  for(i=0;i<TOPICS.length;i++){
+    var t=TOPICS[i],c=col(t);
+    topicHTML+='<button class="btopic" style="border-left-color:'+c+'" data-ti="'+i+'"><div class="t" style="color:'+c+'">'+t+'</div><div class="c">'+counts[t]+' q</div></button>';
+  }
+
+  var csHTML="";
+  for(si=0;si<CS.length;si++){
+    var sec=CS[si];
+    var rows=sec.rows.map(function(r){return'<div class="cs-row"><div class="cs-key">'+r.k+'</div><div class="cs-val">'+r.v+'</div></div>';}).join("");
+    csHTML+='<div class="acc-section"><div class="acc-hdr" data-cs="'+si+'"><span class="acc-icon">'+sec.icon+'</span><span class="acc-title">'+sec.title+'</span><span class="acc-chev" id="csc'+si+'">&#9660;</span></div><div class="acc-body" id="csb'+si+'">'+(sec.tip?'<div class="tip-box"><strong>&#128161; Exam Tip</strong>'+sec.tip+'</div>':'')+rows+'</div></div>';
+  }
+
+  var dgHTML="";
+  for(si=0;si<DG.length;si++){
+    var sec=DG[si];
+    var cards="";
+    for(var ci=0;ci<sec.cards.length;ci++){
+      var card=sec.cards[ci];
+      var rules=card.rules.map(function(r){return'<div class="dg-rule"><div class="dg-dot" style="background:'+sec.color+'"></div><div>'+r+'</div></div>';}).join("");
+      cards+='<div class="dg-card" style="border-left-color:'+sec.color+'"><div class="dg-card-title" style="color:'+sec.color+'">'+card.title+'</div>'+rules+'</div>';
+    }
+    dgHTML+='<div class="acc-section"><div class="acc-hdr" data-dg="'+si+'"><span class="acc-icon">'+sec.icon+'</span><span class="acc-title">'+sec.title+'</span><span class="acc-chev" id="dgc'+si+'">&#9660;</span></div><div class="acc-body" id="dgb'+si+'">'+cards+'</div></div>';
+  }
+
+  var srcItems=[
+    {title:"California Driver's Handbook (Official)",url:"https://www.dmv.ca.gov/portal/handbook/california-driver-handbook/",desc:"Primary source - Sections 5-9 cover all exam topics."},
+    {title:"California Driver's Handbook PDF",url:"https://www.dmv.ca.gov/web/eng_pdf/dl600.pdf",desc:"Download the full 2026 handbook PDF for offline reading."},
+    {title:"California Vehicle Code (CVC)",url:"https://leginfo.legislature.ca.gov/faces/codesTOCSelected.xhtml?tocCode=VEH",desc:"Official statutory source for all CVC sections cited in this quiz."},
+    {title:"DMV Official Sample Knowledge Tests",url:"https://www.dmv.ca.gov/portal/driver-education-and-safety/educational-materials/sample-driver-license-dl-knowledge-tests/",desc:"Free official practice tests directly from the CA DMV."},
+    {title:"DMV New Laws Effective January 2026",url:"https://www.dmv.ca.gov/portal/news-and-media/dmv-highlights-new-laws-in-2026/",desc:"Official DMV summary of 2026 law changes."},
+    {title:"Three Feet for Safety Act - CVC 21760",url:"https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=21760.&lawCode=VEH",desc:"Requires 3-foot clearance when passing bicyclists."}
+  ];
+  var srcHTML=srcItems.map(function(s){return'<div class="src-item"><div class="st">'+s.title+'</div><a href="'+s.url+'" target="_blank" rel="noopener">'+s.url+'</a><div class="sd">'+s.desc+'</div></div>';}).join("");
+
+  // Resume banner
+  var resumeBanner="";
+  var rSrc=savedState||loadProgress();
+  if(rSrc&&rSrc.cur>0&&rSrc.cur<rSrc.qs.length){
+    var rem2=rSrc.qs.length-rSrc.cur;
+    var sess=savedState?"this session":"last session";
+    resumeBanner='<div style="background:#f0fdf4;border:1.5px solid #22c55e;border-radius:11px;padding:12px 15px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:10px">'+
+      '<div><div style="font-weight:700;color:#15803d;font-size:13px">&#9208; Paused - '+sess+'</div>'+
+      '<div style="font-size:11px;color:#64748b;margin-top:2px">'+(rSrc.label||"All Questions")+' &nbsp;&#183;&nbsp; Q'+rSrc.cur+' done &nbsp;&#183;&nbsp; '+rem2+' remaining &nbsp;&#183;&nbsp; &#10003;'+rSrc.score+'</div></div>'+
+      '<div style="display:flex;gap:7px">'+
+      '<button id="resumeBtn" style="background:#16a34a;color:#fff;border-radius:9px;padding:8px 14px;font-size:13px;font-weight:700;white-space:nowrap;border:none;cursor:pointer;font-family:inherit">&#9654; Resume</button>'+
+      '<button id="clearBtn" style="background:#fee2e2;color:#dc2626;border-radius:9px;padding:8px 10px;font-size:12px;font-weight:700;white-space:nowrap;border:1.5px solid #fca5a5;cursor:pointer;font-family:inherit">&#10005;</button>'+
+      '</div></div>';
+  }
+
+  // Build tab pages
+  var PAGE_QUIZ=resumeBanner+
+    '<p class="sec">Practice Sets</p><div class="btn-set">'+setsHTML+'</div>'+
+    '<p class="sec">Practice by Topic</p><div class="grid">'+topicHTML+'</div>'+
+    '<div class="sources"><h3>&#128218; Official Sources and References</h3>'+srcHTML+
+    '<div class="disclaimer">All questions are based on the official California DMV Handbook and California Vehicle Code. This is a practice aid only - always study the official handbook before your exam.</div></div>';
+
+  var PAGE_CHEAT=
+    '<p style="color:#64748b;font-size:12px;line-height:1.5;margin-bottom:14px">Key facts, numbers, and tricks to review right before your exam. Tap any section to expand.</p>'+csHTML;
+
+  var PAGE_GUIDE=
+    '<p style="color:#64748b;font-size:12px;line-height:1.5;margin-bottom:10px">Real-world driving skills beyond the exam. Tap any section to expand.</p>'+
+    '<div style="background:#dbeafe;border:1px solid #93c5fd;border-radius:10px;padding:10px 13px;margin-bottom:14px;font-size:12px;color:#1e40af;line-height:1.5"><strong>About this section:</strong> Practical driving skills, California-specific rules, vehicle controls, weather driving, and good habits.</div>'+
+    dgHTML;
+
+  // Render DOM
+  $("app").innerHTML=
+    '<div class="hdr"><div class="hdr-emoji">&#128663;</div>'+
+    '<h1>California DMV Practice Quiz</h1>'+
+    '<p>'+Q.length+' questions &nbsp;&#183;&nbsp; '+TOPICS.length+' topics &nbsp;&#183;&nbsp; 2026 Edition<br>Verified against the official CA DMV Handbook and California Vehicle Code</p></div>'+
+    '<div class="nav-tabs">'+
+      '<button class="nav-tab'+(activeTab==="quiz"?" active":"")+'" id="tabQuiz">&#128221; Practice Quiz</button>'+
+      '<button class="nav-tab'+(activeTab==="cheat"?" active":"")+'" id="tabCheat">&#128203; Cheat Sheet</button>'+
+      '<button class="nav-tab'+(activeTab==="guide"?" active":"")+'" id="tabGuide">&#128737; Driving Guide</button>'+
+    '</div>'+
+    '<div>'+(activeTab==="quiz"?PAGE_QUIZ:activeTab==="cheat"?PAGE_CHEAT:PAGE_GUIDE)+'</div>';
+
+  // Event wiring
+  on($("tabQuiz"),   "click",function(){activeTab="quiz";  renderHome();});
+  on($("tabCheat"),  "click",function(){activeTab="cheat"; renderHome();});
+  on($("tabGuide"),  "click",function(){activeTab="guide"; renderHome();});
+  on($("resumeBtn"), "click",function(){
+    var src=savedState||loadProgress();
+    if(!src)return;
+    isPausable=true;
+    qs=src.qs.slice();label=src.label||"All "+Q.length+" Questions";
+    cur=src.cur;score=src.score;mistakes=src.mistakes.slice();
+    sel=null;isPartial=false;showCancelModal=false;savedState=null;
+    screen="quiz";renderQuiz();
+  });
+  on($("clearBtn"),"click",function(){savedState=null;clearProgress();renderHome();});
+
+  for(i=0;i<sets.length;i++){
+    (function(s,idx){
+      on($("app").querySelector('[data-si="'+idx+'"]'),"click",function(){
+        var arr;
+        if(!s.filter) arr=Q.slice();
+        else if(s.filter==="r10") arr=shuffle(Q).slice(0,10);
+        else arr=Q.filter(function(q){return s.filter.indexOf(q.t)>-1;});
+        startQuiz(arr,s.label,s.pausable===true);
+      });
+    })(sets[i],i);
+  }
+  for(i=0;i<TOPICS.length;i++){
+    (function(topic,idx){
+      on($("app").querySelector('[data-ti="'+idx+'"]'),"click",function(){
+        startQuiz(Q.filter(function(q){return q.t===topic;}),"Topic: "+topic,false);
+      });
+    })(TOPICS[i],i);
+  }
+  for(si=0;si<CS.length;si++){
+    (function(idx){
+      on($("app").querySelector('[data-cs="'+idx+'"]'),"click",function(){
+        body=$("csb"+idx);chev=$("csc"+idx);
+        open=body.classList.contains("open");
+        body.classList.toggle("open",!open);chev.classList.toggle("open",!open);
+      });
+    })(si);
+  }
+  for(si=0;si<DG.length;si++){
+    (function(idx){
+      on($("app").querySelector('[data-dg="'+idx+'"]'),"click",function(){
+        body=$("dgb"+idx);chev=$("dgc"+idx);
+        open=body.classList.contains("open");
+        body.classList.toggle("open",!open);chev.classList.toggle("open",!open);
+      });
+    })(si);
+  }
+}
+
+// ── RENDER QUIZ ────────────────────────────────────────────────────────────────
+function renderQuiz(){
+  var q=qs[cur];
+  var c=col(q.t);
+  var pct=Math.round(cur/qs.length*100);
+
+  var optsHTML="";
+  for(var oi=0;oi<q.o.length;oi++){
+    var cls="opt";
+    if(sel!==null){cls+=" done";if(oi===q.a)cls+=" correct";else if(oi===sel)cls+=" wrong";}
+    optsHTML+='<button class="'+cls+'" data-i="'+oi+'"><span class="letter">'+["A","B","C","D"][oi]+'.</span>'+q.o[oi]+'</button>';
+  }
+
+  var fbHTML="";
+  if(sel!==null){
+    fbHTML='<div class="fb"><strong>'+(sel===q.a?"&#9989; Correct!":"&#10060; Incorrect.")+'</strong>'+
+      q.e+(q.src?'<span class="src-note">Source: '+q.src+'</span>':'')+
+      '<br><button class="nxt" id="nxtBtn">'+(cur+1>=qs.length?"See Results":"Next &#8594;")+'</button></div>';
+  }
+
+  var pauseBtnHTML=isPausable?'<button class="bpause" id="pauseBtn">&#9208; Pause</button>':"";
+
+  var modalHTML="";
+  if(showCancelModal){
+    var ans=cur+(sel!==null?1:0);
+    var pauseRow=isPausable?'<button class="mbtn-pause" id="btnPause">&#9208; Save and Pause - come back later</button>':"";
+    modalHTML='<div class="modal-bg"><div class="modal"><h3>Leave this test?</h3>'+
+      '<p>You have answered <strong>'+ans+' of '+qs.length+'</strong> questions.</p>'+
+      '<div class="modal-btns">'+
+        '<button class="mbtn-keep" id="btnKeep">&#9654; Keep Going</button>'+
+        pauseRow+
+        '<button class="mbtn-end" id="btnEnd">&#10005; End and See Results</button>'+
+      '</div></div></div>';
+  }
+
+  $("app").innerHTML=
+    '<div class="topbar"><span class="mlbl">'+label+'</span>'+
+    '<div class="quiz-right">'+
+      '<span class="scorelbl">Q'+(cur+1)+'/'+qs.length+' &#10003;'+score+' &#10007;'+mistakes.length+'</span>'+
+      pauseBtnHTML+
+      '<button class="bcanel" id="cancelBtn">&#10005; End</button>'+
+    '</div></div>'+
+    '<div class="prog"><div class="progb" style="width:'+pct+'%"></div></div>'+
+    '<div class="qcard"><span class="tbadge" style="background:'+c+'22;color:'+c+'">'+q.t+'</span>'+
+    '<div class="qtxt">'+q.q+'</div></div>'+
+    '<div class="opts">'+optsHTML+'</div>'+fbHTML+modalHTML;
+
+  var optBtns=$("app").querySelectorAll(".opt");
+  for(var bi=0;bi<optBtns.length;bi++){
+    (function(btn){on(btn,"click",function(){pick(+btn.dataset.i);});})(optBtns[bi]);
+  }
+  on($("nxtBtn"),    "click",next);
+  on($("cancelBtn"), "click",cancelTest);
+  on($("btnKeep"),   "click",keepGoing);
+  on($("btnEnd"),    "click",endEarly);
+
+  function doSaveAndPause(){
+    savedState={qs:qs.slice(),label:label,cur:cur,score:score,mistakes:mistakes.slice()};
+    saveProgress();
+    showCancelModal=false;isPausable=false;
+    screen="menu";renderHome();
+  }
+  var pbtn=$("pauseBtn"),pbtn2=$("btnPause");
+  if(pbtn)  on(pbtn,  "click",doSaveAndPause);
+  if(pbtn2) on(pbtn2, "click",doSaveAndPause);
+}
+
+// ── RENDER RESULTS ─────────────────────────────────────────────────────────────
+function renderResults(){
+  var answered=isPartial?(cur+(sel!==null?1:0)):qs.length;
+  var pct=answered>0?Math.round(score/answered*100):0;
+  var passed=(pct>=83)&&!isPartial;
+  var rc=isPartial?"#f59e0b":(passed?"#22c55e":"#ef4444");
+  var rb=isPartial?"#fffbeb":(passed?"#f0fdf4":"#fef2f2");
+  var emoji=isPartial?"&#9208;":(passed?"&#127881;":"&#128218;");
+  var title=isPartial?"Test Ended Early":(passed?"Great job!":"Keep practicing!");
+  var tc=isPartial?"#b45309":(passed?"#16a34a":"#dc2626");
+
+  var partialBanner=isPartial?
+    '<div class="partial-banner">You ended after <strong>'+answered+' of '+qs.length+'</strong> questions. Score is based on answered questions only.</div>':"";
+
+  var mSection="";
+  if(mistakes.length===0&&answered>0){
+    mSection='<div class="perf">&#11088; No mistakes'+(isPartial?" so far!":"- perfect score!")+'</div>';
+  }else if(mistakes.length>0){
+    var tbg=showM?"#fef2f2":"#fff7ed",tbc=showM?"#fca5a5":"#fdba74";
+    var itemsHTML="";
+    if(showM){
+      for(var mi=0;mi<mistakes.length;mi++){
+        var m=mistakes[mi],open=(expIdx===mi);
+        var bodyHTML="";
+        if(open){
+          var optsH="";
+          for(var oi2=0;oi2<m.o.length;oi2++){
+            var ocls="mopt"+(oi2===m.a?" mc":oi2===m.si?" mw":"");
+            var tag=oi2===m.a?" &#9989; Correct":oi2===m.si?" &#10060; Your answer":"";
+            optsH+='<div class="'+ocls+'"><strong>'+["A","B","C","D"][oi2]+'.</strong> '+m.o[oi2]+tag+'</div>';
+          }
+          bodyHTML='<div class="mbody">'+optsH+'<div class="expl">&#128161; '+m.e+(m.src?'<span class="src-note">Source: '+m.src+'</span>':'')+'</div></div>';
+        }
+        itemsHTML+='<div class="mitem"><button class="mhdr" data-mi="'+mi+'"><div class="mhdr-info"><div class="mbadge">'+m.t+'</div><div class="mqtxt">'+m.q+'</div></div><span class="mchev'+(open?" open":"")+'">&#9660;</span></button>'+bodyHTML+'</div>';
+      }
+    }
+    mSection='<button class="mtoggle" id="mtoggle" style="background:'+tbg+';border-color:'+tbc+'">'+
+      '<span style="font-weight:700;color:#b45309">&#9888; '+mistakes.length+' mistake'+(mistakes.length>1?"s":"")+" to review</span>"+
+      '<span style="color:#b45309;font-size:12px;font-weight:600">'+(showM?"Hide &#9650;":"Review &#9660;")+'</span></button>'+
+      '<div>'+itemsHTML+'</div>';
+  }
+
+  var retryBtn=isPartial?"":'<button class="bret" id="retryBtn">Retry Same Set</button>';
+  var backLabel=isPartial?"&#8592; Pick New Topic":"&#8592; Back to Menu";
+
+  $("app").innerHTML=
+    '<div class="rcard" style="background:'+rb+';border-color:'+rc+'">'+
+    '<div class="rcard-emoji">'+emoji+'</div>'+
+    '<div class="rcard-title" style="color:'+tc+'">'+title+'</div>'+
+    '<div class="rcard-score">'+score+'/'+answered+' ('+pct+'%)</div>'+
+    '<div class="rcard-sub">'+label+(isPartial?"":" &#183; Real exam requires 83%")+'</div></div>'+
+    partialBanner+mSection+
+    '<div class="arow">'+retryBtn+'<button class="bbk" id="menuBtn">'+backLabel+'</button></div>';
+
+  if(!isPartial)on($("retryBtn"),"click",function(){startQuiz(qs.slice(),label,isPausable);});
+  on($("menuBtn"),"click",function(){screen="menu";renderHome();});
+  on($("mtoggle"),"click",function(){showM=!showM;expIdx=null;renderResults();});
+  var mhdrs=$("app").querySelectorAll(".mhdr");
+  for(var mhi=0;mhi<mhdrs.length;mhi++){
+    (function(btn){
+      on(btn,"click",function(){
+        var idx=+btn.dataset.mi;
+        expIdx=(expIdx===idx)?null:idx;
+        renderResults();
+      });
+    })(mhdrs[mhi]);
+  }
+}
+
+// ── BOOT ───────────────────────────────────────────────────────────────────────
+renderHome();
+</script>
+</body>
+</html>
