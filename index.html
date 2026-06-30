@@ -122,6 +122,17 @@ a:hover{text-decoration:underline}
 .src-item a{font-size:11px;color:#2563eb;word-break:break-all;display:block}
 .src-item .sd{font-size:11px;color:#64748b;margin-top:2px;line-height:1.5}
 .disclaimer{margin-top:10px;font-size:11px;color:#94a3b8;line-height:1.6;border-top:1px solid #f1f5f9;padding-top:10px}
+.search-wrap{position:relative;margin-bottom:16px}
+.search-ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:#94a3b8;pointer-events:none}
+.search-inp{width:100%;height:42px;padding:0 38px 0 38px;border:2px solid #e2e8f0;border-radius:11px;background:#fff;color:#1e293b;font-size:clamp(13px,3vw,14px);font-family:inherit;outline:none;transition:border-color .15s,box-shadow .15s}
+.search-inp:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,0.12)}
+.search-inp::placeholder{color:#94a3b8}
+.search-clr{position:absolute;right:11px;top:50%;transform:translateY(-50%);background:none;border:none;color:#94a3b8;cursor:pointer;font-size:17px;line-height:1;padding:2px 5px;display:none;font-family:inherit}
+.search-clr:hover{color:#1e293b}
+.search-meta{font-size:12px;color:#64748b;margin:-8px 0 14px;padding-left:2px}
+.search-meta strong{color:#2563eb}
+.search-hl{background:rgba(250,204,21,0.45);border-radius:2px;padding:0 1px}
+.no-results{text-align:center;padding:36px 16px;color:#64748b;font-size:14px;line-height:1.7}
 </style>
 </head>
 <body>
@@ -287,7 +298,111 @@ var Q=[
   {t:"Tricky Questions",q:"You are on a one-way street parking uphill. Which side do you park on and which way do wheels face?",o:["Right side only - wheels right","Left side only - wheels left","Either side - wheels AWAY from the nearest curb","Either side - wheels TOWARD the nearest curb"],a:2,e:"On a one-way street you may park on either side. When parking uphill, turn wheels away from the nearest curb regardless of which side you park on.",src:"Handbook S6"},
   {t:"Tricky Questions",q:"You are already in the intersection when an emergency vehicle with lights approaches. You should:",o:["Stop immediately in the intersection","Continue through the intersection then pull to the right and stop","Reverse out of the intersection","Turn right at the intersection to get out of the way"],a:1,e:"If you are already in the intersection when an emergency vehicle approaches, continue through the intersection, then drive to the right and stop.",src:"Handbook S7"},
   {t:"Tricky Questions",q:"You parked legally but when you return a No Parking sign was placed while you were gone. You:",o:["Must move your vehicle immediately","Are not responsible - the sign was not there when you parked","Can leave your vehicle for up to 30 more minutes","Must move your vehicle within 1 hour"],a:0,e:"Even if a sign is placed after you park, you must comply and move your vehicle as soon as you return.",src:"Handbook S6"},
-  {t:"Tricky Questions",q:"Which of the following is true about right turns at a red light in California?",o:["Always allowed after stopping","Allowed after stopping UNLESS a No Turn on Red sign is posted","Never allowed at a red light","Allowed only between 6am and 10pm"],a:1,e:"You may turn right at a red light after a complete stop and yielding to pedestrians and cross traffic - UNLESS a No Turn on Red sign is posted. You may also NOT turn right on a red ARROW.",src:"Handbook S7"}
+  {t:"Tricky Questions",q:"Which of the following is true about right turns at a red light in California?",o:["Always allowed after stopping","Allowed after stopping UNLESS a No Turn on Red sign is posted","Never allowed at a red light","Allowed only between 6am and 10pm"],a:1,e:"You may turn right at a red light after a complete stop and yielding to pedestrians and cross traffic - UNLESS a No Turn on Red sign is posted. You may also NOT turn right on a red ARROW.",src:"Handbook S7"},
+
+  // ── DOUBLE PARKING ──
+  {t:"Parking Rules",q:"Is double parking ever allowed in California?",o:["Yes, briefly if your hazard lights are on","Yes, if you stay in the vehicle","No - double parking is illegal at all times","Yes, if you are loading or unloading freight"],a:2,e:"Double parking - stopping on the roadway side of a vehicle already parked at the curb - is illegal at all times in California under CVC 22500(h). There are no exceptions for hazard lights or staying in the vehicle.",src:"CVC 22500(h)"},
+  {t:"Parking Rules",q:"Double parking means:",o:["Parking in two spaces at once","Parking on the roadway side of a vehicle already parked at the curb","Parking in a no-parking zone twice in one day","Parking facing the wrong direction"],a:1,e:"Double parking means stopping, standing, or parking on the roadway side of another vehicle that is already stopped or parked at the curb or edge of a highway. It is always illegal under CVC 22500(h).",src:"CVC 22500(h)"},
+  {t:"Parking Rules",q:"You need to quickly drop off a package. Can you double park with your hazard lights on?",o:["Yes - hazard lights make it legal briefly","Yes - if someone stays in the vehicle","No - double parking is illegal regardless of hazard lights or duration","Yes - if it is a commercial delivery"],a:2,e:"Double parking is illegal at all times under CVC 22500(h). Turning on your hazard lights does not make it legal. Use a legal loading zone or curb space instead.",src:"CVC 22500(h)"},
+
+  // ── ANIMALS IN VEHICLES / TRUCKS ──
+  {t:"Sharing the Road",q:"When transporting animals in the back of a pickup truck, you must:",o:["Keep the animal on a short leash tied to the cab","Ensure the animal is properly secured or in a suitable container","Only transport animals if the truck has a cover","Animals are never allowed in the back of a pickup truck"],a:1,e:"California law requires that animals transported in the back of a pickup truck or other open vehicle must be properly secured - in a cage, crate, or otherwise restrained - to prevent them from falling or jumping out.",src:"Handbook S7 / CVC 23117"},
+  {t:"Sharing the Road",q:"It is illegal to do which of the following regarding animals on a highway?",o:["Transport animals in a secured cage in a truck bed","Slow down when approaching livestock near the road","Dump or abandon animals on a highway","Feed animals from your vehicle window"],a:2,e:"It is illegal to dump or abandon animals on a highway. This crime is punishable by a fine of up to $1,000, six months in jail, or both.",src:"Handbook S7"},
+  {t:"Sharing the Road",q:"You are driving and see a person in charge of horses or livestock near the road. You should:",o:["Maintain your speed - animals are used to traffic","Slow down or stop and follow the directions of the person in charge of the animals","Honk your horn to alert the animals","Move to the far lane and maintain speed"],a:1,e:"When you see animals or livestock near the road, slow down or stop and proceed when it is safe. Follow any directions given by the person in charge of the animals. It is against the law to intentionally scare horses or livestock.",src:"Handbook S7"},
+
+  // ── SLOW-MOVING VEHICLE EMBLEM (orange-red triangle) ──
+  {t:"Road Signs",q:"An orange and red triangular emblem on the back of a vehicle means:",o:["The vehicle is carrying hazardous materials","The vehicle is an emergency vehicle","The vehicle travels at 25 mph or less - it is a slow-moving vehicle","The vehicle is oversized and requires extra clearance"],a:2,e:"An orange and red triangle (Slow-Moving Vehicle emblem) on the back of a vehicle means it travels at 25 mph or less. Examples include farm tractors, road maintenance vehicles, and animal-drawn carts. Required by CVC 24615.",src:"Handbook S7 / CVC 24615"},
+  {t:"Road Signs",q:"You are approaching a vehicle displaying an orange and red triangular emblem on its rear. You should:",o:["Flash your lights and pass immediately","Expect the vehicle to be traveling at 25 mph or less and slow down","Honk to alert the driver to pull over","Maintain your speed - the vehicle must yield to you"],a:1,e:"The orange and red triangle is the Slow-Moving Vehicle (SMV) emblem. It means the vehicle is designed to travel at 25 mph or less. Slow down and pass only when it is safe to do so.",src:"Handbook S7 / CVC 24615"},
+  {t:"Road Signs",q:"Which vehicles are required to display the orange and red slow-moving vehicle triangle?",o:["All vehicles traveling under 45 mph","Vehicles designed to travel at 25 mph or less on public roads","Only farm equipment on rural roads","Emergency vehicles when moving slowly"],a:1,e:"Any vehicle designed and operated at 25 mph or less on public highways is required to display the Slow-Moving Vehicle (SMV) emblem on its rear. This includes farm tractors, road maintenance vehicles, and animal-drawn vehicles.",src:"CVC 24615"},
+
+  // ── POLICE / LAW ENFORCEMENT QUESTIONS ──
+  {t:"Right-of-Way",q:"A law enforcement officer signals you to do something that conflicts with an existing traffic sign. You should:",o:["Follow the traffic sign - it is the law","Follow the officer's instructions - they override signs, signals, and laws","Stop and wait until the conflict is resolved","Follow the sign if it is a red light signal"],a:1,e:"You must obey any direction, order, or signal given by a law enforcement officer or firefighter - even if it conflicts with existing signs, signals, or laws. Officers directing traffic have authority over all traffic control devices.",src:"Handbook S7"},
+  {t:"Fines & Penalties",q:"You are pulled over and issued a traffic ticket. By signing the ticket you are:",o:["Admitting guilt for the violation","Promising to pay the fine immediately","Promising to appear in court or pay the fine by the due date","Waiving your right to contest the ticket"],a:2,e:"Signing a traffic ticket is NOT an admission of guilt. It is only a written promise to appear in court or pay the fine by the due date. Refusing to sign may result in arrest.",src:"Handbook S12"},
+  {t:"Fines & Penalties",q:"What happens if you fail to appear in court after signing a traffic ticket?",o:["Nothing - signing was just a formality","You receive a warning letter from the DMV","Your driving privilege may be suspended until you appear in court","Your ticket is automatically dismissed"],a:2,e:"If you fail to appear (FTA) in court after signing a traffic ticket, the DMV may suspend your driving privilege until you appear. The FTA also goes on your driver record.",src:"Handbook S12"},
+  {t:"Fines & Penalties",q:"It is a misdemeanor to use a motor vehicle to flee or evade law enforcement. The penalty can include:",o:["A small fine only","Imprisonment in county jail for up to one year","License suspension for 30 days","Community service only"],a:1,e:"Using a motor vehicle to flee or attempt to evade a law enforcement officer performing their duties is a misdemeanor punishable by imprisonment in a county jail for one year or less. Causing serious injury during a pursuit can result in up to seven years in state prison.",src:"Handbook S7"},
+  {t:"Right-of-Way",q:"It is illegal to follow within how many feet of an emergency vehicle that has its siren or flashing lights on?",o:["100 feet","200 feet","300 feet","500 feet"],a:2,e:"It is against the law to follow within 300 feet of any fire engine, law enforcement vehicle, ambulance, or other emergency vehicle when their siren or flashing lights are on.",src:"Handbook S7"},
+  {t:"Fines & Penalties",q:"You drive to the scene of a fire or collision out of curiosity. This is:",o:["Legal as long as you do not block emergency vehicles","Legal only if you are a bystander and not interfering","Illegal - you can be arrested for driving to the scene of a fire or disaster","Legal if you park a block away and walk to the scene"],a:2,e:"You can be arrested if you drive to the scene of a fire, collision, or other disaster out of curiosity. Doing so interferes with firefighters, ambulance crews, and other emergency personnel.",src:"Handbook S7"},
+
+  // ── 2026 NEW LAWS ──────────────────────────────────────────────────────────────
+  {t:"2026 New Laws",q:"California's expanded Move Over law (AB 390, effective 2026) now requires you to slow down and move over for:",o:["Emergency vehicles with lights and sirens only","Any stationary vehicle displaying hazard lights or warning devices - not just emergency vehicles","Police and fire vehicles only","All vehicles stopped on any road regardless of lights"],a:1,e:"As of January 1, 2026, the Move Over law was expanded to cover ANY stationary vehicle displaying hazard lights, flares, cones, or other warning devices - not just emergency vehicles. You must move over a lane if safe, or slow down significantly if you cannot change lanes.",src:"AB 390 / CVC 21809"},
+  {t:"2026 New Laws",q:"What is an Ignition Interlock Device (IID)?",o:["A GPS tracker installed on DUI offenders' vehicles","A breath-activated device that prevents a vehicle from starting if alcohol is detected","A dashboard camera required after a DUI conviction","An alcohol sensor that alerts law enforcement remotely"],a:1,e:"An IID is a breath-activated device installed in a vehicle that prevents the engine from starting if the driver's breath contains alcohol above a set level. California's IID program for DUI offenders has been extended through January 1, 2033.",src:"AB 366"},
+  {t:"2026 New Laws",q:"Under California's 2026 IID law, who may be required to install an Ignition Interlock Device?",o:["Only repeat DUI offenders","Only first-time DUI offenders who caused injury","Specified DUI offenders including certain first-time offenders - requirements apply even while a criminal case is pending","Only commercial vehicle drivers convicted of DUI"],a:2,e:"The expanded IID program applies to specified DUI offenders including certain first-time offenders. Critically, DMV penalties including IID requirements operate separately from criminal court - you can face license restrictions before your criminal case is resolved.",src:"AB 366"},
+  {t:"2026 New Laws",q:"What is the new probation term for a person convicted of vehicular manslaughter while intoxicated in California (2026)?",o:["Up to 2 years (unchanged)","Between 3 and 5 years (increased from 2 years)","A mandatory 5 years","10 years to match DUI record duration"],a:1,e:"AB 1087 (effective January 1, 2026) increased probation for vehicular manslaughter or gross vehicular manslaughter while intoxicated from 2 years to a term of between 3 and 5 years, aligning with regular DUI probation terms.",src:"AB 1087"},
+  {t:"2026 New Laws",q:"Starting January 1, 2026, local governments in California may now operate automated cameras to issue civil penalties for:",o:["Speeding violations","Red-light violations","Lane splitting violations","School zone violations"],a:1,e:"SB 720 (effective January 1, 2026) allows local jurisdictions to operate automated traffic enforcement systems to issue civil penalties for red-light violations, subject to strict limitations and oversight requirements.",src:"SB 720"},
+  {t:"2026 New Laws",q:"The school zone speed limit in California is currently 25 mph. When will it change to 20 mph statewide?",o:["January 1, 2026","January 1, 2028","January 1, 2031","It is already 20 mph statewide"],a:2,e:"AB 382 lowers the default school zone speed limit from 25 mph to 20 mph beginning January 1, 2031. However, individual communities may adopt 20 mph limits earlier. Some areas, like parts of Los Angeles County, have already gone to 15 mph. Always check posted signs near schools.",src:"AB 382"},
+
+  // ── SMOG CHECK ─────────────────────────────────────────────────────────────────
+  
+  
+
+  // ── DAYS-RELATED GAPS ──────────────────────────────────────────────────────────
+  {t:"DMV & Registration",q:"When you buy a vehicle in California, how many days do you have to transfer the title into your name?",o:["5 days","10 days","30 days","60 days"],a:1,e:"The buyer has 10 days from the date of purchase to transfer title to their name at the DMV. The seller separately must notify the DMV within 5 days of the sale. These are two distinct deadlines for each party.",src:"Handbook S11"},
+  {t:"DUI & Alcohol Laws",q:"After a DUI arrest in California, how many days do you have to request a DMV hearing to challenge your license suspension?",o:["5 days","10 days","30 days","60 days"],a:1,e:"After a DUI arrest, you have only 10 days to contact the DMV and request a hearing to challenge your license suspension. If you do not request a hearing within 10 days, your license will be automatically suspended. DMV and criminal court actions are separate proceedings.",src:"CVC 13353.2"},
+  {t:"DMV & Registration",q:"If you fail the California DMV knowledge test, how long must a driver under 18 wait before retaking it?",o:["Next business day","7 days","14 days","30 days"],a:1,e:"Drivers under 18 must wait 7 days before retaking the knowledge test after a failure. Drivers 18 and older may retake the test the next business day. You are allowed 3 total attempts before you must reapply and pay the fee again.",src:"Handbook S3"},
+
+  // ── FINES-RELATED GAPS ─────────────────────────────────────────────────────────
+  
+  {t:"Fines & Penalties",q:"What is the fine for obstructing, altering, or covering a license plate in California (2026)?",o:["$250","$500","Up to $1,000","Up to $2,500"],a:2,e:"Under 2026 California law, manufacturing, distributing, or using a device to obstruct or alter the reading of a license plate carries a fine of up to $1,000. This includes covers, sprays, or other devices that block automated plate readers.",src:"2026 CA Law"},
+  {t:"Fines & Penalties",q:"If you are involved in a hit-and-run that causes only property damage with no injuries, this is:",o:["An infraction with a small fine only","A misdemeanor punishable by up to 6 months in jail and/or a $1,000 fine","A felony in all circumstances","Only illegal if the damage exceeds $1,000"],a:1,e:"Leaving the scene of an accident involving only property damage (no injury) is a misdemeanor under CVC 20002, punishable by up to 6 months in county jail and/or a fine of up to $1,000. If injury or death is involved, it becomes a felony with much greater penalties.",src:"CVC 20002"},
+  {t:"Fines & Penalties",q:"What is the fine for a traffic violation committed in a Safety Enhanced-Double Fine Zone in California?",o:["The same as a normal violation","Double the normal fine","Triple the normal fine","A flat $1,000 regardless of violation type"],a:1,e:"Certain roads with high collision-related injuries are designated Safety Enhanced-Double Fine Zones. Traffic fines in these zones are doubled. Work zones also carry doubled fines.",src:"Handbook S7"},
+
+  // ── DISTANCE-RELATED GAPS ──────────────────────────────────────────────────────
+  {t:"Distances & Measurements",q:"No parking is allowed within how many feet of a fire station driveway on the same side of the street?",o:["10 feet","15 feet","20 feet","30 feet"],a:2,e:"You may not park within 20 feet of a fire station driveway entrance on the same side of the street. On the opposite side, the restriction is within 75 feet. This is a distinct rule from the 15-foot fire hydrant restriction.",src:"CVC 22500"},
+  {t:"Distances & Measurements",q:"No parking is allowed within how many feet of a stop sign?",o:["15 feet","20 feet","30 feet","50 feet"],a:2,e:"California law prohibits parking within 30 feet of a stop sign. This is different from the 20-foot crosswalk rule and the 15-foot fire hydrant rule - all three are commonly confused on the test.",src:"CVC 22500"},
+  {t:"Distances & Measurements",q:"You may enter a two-way center left turn lane no more than how many feet before your turn?",o:["100 feet","150 feet","200 feet","300 feet"],a:2,e:"You may only enter a two-way center left turn lane within 200 feet of your intended turn. This shared lane is for left turns in both directions - do not use it as a travel lane or merge lane.",src:"CVC 21460.5"},
+
+  // ── T-INTERSECTION GAPS ────────────────────────────────────────────────────────
+  {t:"Right-of-Way",q:"You are on the terminating (dead-end) road at a T-intersection with no signs. Who must you yield to?",o:["Only vehicles approaching from your left","Only vehicles approaching from your right","All vehicles, bicyclists, and pedestrians on the through road","Whoever arrived at the intersection first"],a:2,e:"At a T-intersection without STOP or YIELD signs, the driver on the terminating road MUST yield to all vehicles, bicyclists, and pedestrians on the through road. This is different from a 4-way uncontrolled intersection where first-arrival and right-side rules apply.",src:"Handbook S7"},
+  {t:"Right-of-Way",q:"At a T-intersection without signs, a pedestrian is crossing the through road. Who has priority?",o:["The vehicle on the through road, as it has right of way over the terminating road","The vehicle that arrived at the intersection first","The pedestrian always has priority over all vehicles","The vehicle turning left from the through road"],a:2,e:"Pedestrians always have the right of way in crosswalks at any intersection, including T-intersections. Even though vehicles on the through road have right of way over vehicles on the terminating road, pedestrians crossing the through road still have priority over those vehicles.",src:"Handbook S7"},
+  {t:"Right-of-Way",q:"At a T-intersection, a vehicle on the through road and a vehicle on the terminating road arrive at exactly the same time. What is the rule?",o:["The vehicle on the right always goes first, same as a 4-way stop","The vehicle on the through road always has right of way regardless of arrival time","The vehicle on the terminating road may go first since it waited longer","They may both proceed simultaneously if going in different directions"],a:1,e:"At a T-intersection, the through road has right of way at all times regardless of when vehicles arrive. This is unlike a 4-way uncontrolled intersection where first-arrival or right-side rules determine priority. The terminating road driver must always yield.",src:"Handbook S7"},
+
+  // ── ILLEGAL ITEMS ──────────────────────────────────────────────────────────────
+  {t:"Carrying Illegal Items",q:"How must a handgun be legally transported in a vehicle in California?",o:["Loaded, in a locked glove compartment","Unloaded, in a locked container or the vehicle's trunk - not in the glove compartment","Unloaded and visible on the seat to show it is not concealed","Loaded if you have a valid hunting license"],a:1,e:"A handgun must be unloaded and stored in a fully enclosed locked container (padlock, key lock, or combination lock) or in the trunk. The glove compartment does NOT qualify as a locked container under California law, even if it has a lock.",src:"Penal Code 25610"},
+  {t:"Carrying Illegal Items",q:"Why does the glove compartment NOT satisfy California's requirement for storing a handgun in a vehicle?",o:["It is too close to the driver","It does not qualify as a locked container under California law","It is only acceptable if the vehicle has no trunk","It is acceptable as long as the glove compartment is locked"],a:1,e:"California law defines a locked container as a secure container fully enclosed and locked. The glove compartment (and utility compartment) are specifically excluded from this definition under Penal Code 16850, even if they have a lock. The trunk or a separate locked hard case must be used.",src:"Penal Code 16850"},
+  {t:"Carrying Illegal Items",q:"You allow a friend to place a firearm in your vehicle knowing it violates California law. As the vehicle owner you are:",o:["Not responsible - you did not bring the firearm yourself","Responsible - it is unlawful to knowingly permit another person to bring a firearm into your vehicle in violation of the law","Only responsible if you are driving at the time","Responsible only if the firearm is loaded"],a:1,e:"California law makes it unlawful for a driver or owner of a vehicle to knowingly permit another person to carry or bring a firearm into the vehicle in violation of the law. Ownership of the vehicle creates responsibility even if you personally did not possess the firearm.",src:"Penal Code 26100"},
+  {t:"Carrying Illegal Items",q:"Recreational marijuana is legal in California. Is it legal to use marijuana while driving?",o:["Yes, if you are a passenger","Yes, if the amount is within the legal possession limit","No - driving under the influence of marijuana is illegal regardless of recreational legality","Yes, if your BAC is under 0.08%"],a:2,e:"While recreational marijuana is legal for adults 21+ in California, driving under the influence of marijuana is illegal. It is also illegal for any occupant to smoke or consume marijuana in a moving vehicle. Open containers of cannabis must be stored in the trunk or an area inaccessible to the driver.",src:"CVC 23222 / Handbook S9"},
+
+  // ── STATE-TO-STATE DIFFERENCES ─────────────────────────────────────────────────
+  {t:"California-Specific Rules",q:"You move to California and hold a valid driver's license from another state. Once you establish California residency, your out-of-state license:",o:["Remains valid for driving in California for up to 1 year","Is valid for 60 days then automatically expires","Is no longer valid for driving in California - you must obtain a CA license within 10 days","Remains valid indefinitely unless you choose to switch"],a:2,e:"Once you establish residency in California, your out-of-state license is no longer valid for driving in California. You must obtain a California driver's license within 10 days of becoming a resident. You may use the out-of-state license as ID but not to drive.",src:"Handbook S1"},
+  
+  {t:"California-Specific Rules",q:"Which of the following is a driving rule that is UNIQUE to California compared to most other US states?",o:["Right turn on red after a full stop is permitted","Drivers 21+ face a 0.08% BAC limit","Motorcycle lane splitting is explicitly legal when done safely","A 3-second following distance is recommended"],a:2,e:"Lane splitting (motorcycles riding between lanes of slow or stopped traffic) is legal in California and California is unique among all 50 US states in explicitly permitting this. The 0.08% BAC limit is the federal standard adopted by all states. Right on red is legal in most US states. The 3-second rule is universally recommended.",src:"CVC 21658.1"},
+
+  // ── PARKING GAPS ───────────────────────────────────────────────────────────────
+  {t:"Parking Rules",q:"It is illegal to park facing oncoming traffic on a two-way street because:",o:["Your headlights would blind oncoming drivers","It is illegal - your vehicle must be parked in the same direction as traffic flow on that side of the road","It increases the risk of door-opening accidents","All of the above"],a:1,e:"On a two-way street you must park in the same direction as traffic flow on the side of the road you are on. Parking facing oncoming traffic is illegal. The exception is a one-way street where you may park on either side.",src:"CVC 22502"},
+
+  // ── TRICKY QUESTION GAPS ───────────────────────────────────────────────────────
+  {t:"Tricky Questions",q:"You are approaching a red light and want to turn right. There is no No Turn on Red sign. You may turn right:",o:["Without stopping since you are turning, not going straight","After coming to a complete stop and yielding to pedestrians and cross traffic","Only if no cars are coming from either direction","Only between 6am and 10pm"],a:1,e:"You may turn right at a red light after making a complete stop, checking for pedestrians and cross traffic, and yielding to all. This is only allowed if there is NO No Turn on Red sign posted. You may NEVER turn right on a red arrow signal, even with no sign.",src:"Handbook S7"},
+  {t:"Tricky Questions",q:"On a two-lane mountain road where you are driving slowly and cannot let others pass, what must you do when 5 or more vehicles have backed up behind you?",o:["Speed up to maintain a safe distance ahead of the queue","Turn on your hazard lights and continue at your current speed","Pull into the nearest turnout to let the vehicles pass - this is required by law","It is the other drivers' responsibility to find a safe passing opportunity"],a:2,e:"California law requires you to use a turnout area or lane when driving at a speed that impedes the normal flow of traffic and 5 or more vehicles are following. Simply turning on hazard lights is not sufficient - you must actually pull over and let traffic pass.",src:"CVC 21656"},
+
+  // ── FREEWAY GAPS ───────────────────────────────────────────────────────────────
+  {t:"Freeway Driving",q:"Your vehicle breaks down on a freeway. What is the correct sequence of actions?",o:["Stop in your lane and turn on hazard lights - never drive on the shoulder","Pull as far to the right shoulder as possible, turn on hazard lights, and if safe exit and stand well away from traffic","Stop in the far-right lane, turn on hazard lights, and wait in the vehicle","Pull onto the shoulder only if you can see an emergency phone nearby"],a:1,e:"If you break down on a freeway: move as far right onto the shoulder as possible, turn on hazard lights, set out warning flares or triangles if available. If it is safe to exit the vehicle, get out and stand well away from traffic - on the other side of a guardrail if possible. Never stand between your vehicle and oncoming traffic.",src:"Handbook S8"},
+  {t:"Freeway Driving",q:"Driving so slowly on a freeway that you impede the normal flow of traffic is:",o:["Always legal if you are driving safely","Illegal even though there is no posted minimum speed","Only illegal in the far-left lane","Legal for new drivers or elderly drivers"],a:1,e:"There is no posted minimum speed on most California freeways, but CVC 22400 makes it illegal to drive at a speed that impedes or blocks the normal and reasonable flow of traffic. If your speed is causing a hazard or backing up traffic, you are breaking the law.",src:"CVC 22400"},
+
+  // ── SHARING THE ROAD GAPS ──────────────────────────────────────────────────────
+  
+  {t:"Sharing the Road",q:"You are driving and approach a pedestrian crossing at an intersection with no marked crosswalk lines painted on the road. You must:",o:["Proceed normally - unmarked crosswalks have no legal status","Yield only if the pedestrian steps into the road first","Yield to pedestrians - unmarked crosswalks at intersections carry the same legal protection as marked ones","Honk to alert the pedestrian before proceeding"],a:2,e:"An unmarked crosswalk exists at every intersection where two roads meet, even if no lines are painted. Pedestrians have the same right of way at unmarked crosswalks as at marked ones. Always yield to pedestrians in or about to enter any crosswalk.",src:"Handbook S7 / CVC 21950"},
+
+  // ── INSURANCE ──────────────────────────────────────────────────────────────────
+  {t:"DMV & Registration",q:"What must you do if you are involved in an accident and do not have vehicle insurance?",o:["Exchange information and report the accident as normal - insurance is not required","You face suspension of your license and vehicle registration, plus fines","You only face a fine - your license cannot be suspended for lack of insurance","You must purchase insurance within 10 days of the accident to avoid penalties"],a:1,e:"Driving without insurance in California (CVC 16029) is illegal. If you are in an accident without insurance, you face fines, suspension of your driver's license and vehicle registration, and potential civil liability. California requires proof of financial responsibility at all times.",src:"CVC 16029"},
+
+  // ── ROAD SIGNS GAPS ────────────────────────────────────────────────────────────
+  {t:"Road Signs",q:"What does a 'Shoulder Work Ahead' or 'Road Work Ahead' orange sign mean?",o:["Slow down and merge left immediately","Workers or equipment are present ahead - slow down, increase following distance, and expect lane changes or stopped vehicles","The road is closed - turn around","A detour is mandatory ahead"],a:1,e:"Orange work zone signs warn of construction or maintenance activity ahead. When you see them, slow down, increase your following distance, expect sudden stops, and watch for workers and equipment near or in the road. Fines for violations in active work zones are $1,000 or more.",src:"Handbook S7"},
+  {t:"Road Signs",q:"A yellow diamond sign showing a car with wavy lines beneath it means:",o:["Winding road ahead - expect several curves","Hill ahead - shift to lower gear","Road may be slippery when wet - reduce speed and increase following distance","Uneven pavement or bumps ahead"],a:2,e:"The Slippery When Wet sign (yellow diamond with a skidding car) warns that the road surface becomes slippery in wet conditions. Reduce speed, avoid hard braking or sudden steering changes, and increase following distance. This is commonly confused with the Winding Road sign which shows an S-curve arrow.",src:"Handbook S7"},
+  {t:"Road Signs",q:"What does a yellow diamond sign with two arrows pointing away from each other (splitting apart) mean?",o:["Divided highway ends - two-way traffic resumes","Divided highway begins ahead - keep right, a median or barrier will separate traffic","Two lanes merge into one ahead","Road forks - choose your direction"],a:1,e:"The Divided Highway Begins sign warns you are about to enter a section of road with a physical median or barrier separating traffic. Keep to the right-hand road. The arrows point apart (splitting) to show the road is about to be divided. The arrows coming together would mean Divided Highway Ends.",src:"Handbook S7"},
+  {t:"Road Signs",q:"What does a yellow diamond sign with two arrows pointing toward each other (coming together) mean?",o:["Divided highway begins - keep right","Divided highway ends - undivided two-way road resumes ahead","Two roads merge into one from both sides","Lane narrows - prepare to stop"],a:1,e:"The Divided Highway Ends sign warns that the physical median or barrier separating traffic is about to end. You will be on an undivided two-way road where oncoming traffic is in the opposite lane separated only by pavement markings. This and the Divided Highway Begins sign account for 40% of sign errors on the DMV test.",src:"Handbook S7"},
+  {t:"Road Signs",q:"A black and white pennant-shaped sign (a horizontal triangle) on the LEFT side of the road means:",o:["You are entering a no-passing zone - do not pass from this point","Merge left ahead","Road narrows on the left side","Left lane ends"],a:0,e:"The No Passing Zone pennant sign is placed on the left side of the road at the beginning of a zone where passing is prohibited. It is the only pennant-shaped (horizontal triangle pointing right) sign used on US roads. Do not pass any vehicle from this point until the zone ends.",src:"Handbook S7"},
+  {t:"Road Signs",q:"What does a 'Do Not Enter' sign look like and when would you see it?",o:["Yellow diamond with an X - at railroad crossings","Red circle with a white horizontal bar - at entrances to one-way roads going against traffic","White rectangle with a red border - at school zones","Red octagon - at all stop-controlled intersections"],a:1,e:"The Do Not Enter sign is a red circle with a white horizontal bar. You see it at the wrong end of one-way streets, freeway off-ramps, and other one-way roads. It means traffic is flowing toward you - entering would put you in the path of oncoming vehicles.",src:"Handbook S7"},
+  {t:"Road Signs",q:"What is the difference between a 'Wrong Way' sign and a 'Do Not Enter' sign?",o:["They are identical in meaning and appearance","Do Not Enter is posted before a restricted area; Wrong Way is posted after you have already entered the road going the wrong direction","Wrong Way is only for freeways; Do Not Enter is only for surface streets","Do Not Enter is regulatory; Wrong Way is advisory only"],a:1,e:"Do Not Enter (red circle, white bar) is posted at the entrance to a one-way road to prevent you from entering. Wrong Way (red rectangle, white text) is posted along the road itself for drivers who have already entered going the wrong direction. If you see a Wrong Way sign you are driving into oncoming traffic - pull over safely and correct your direction.",src:"Handbook S7"},
+  {t:"Road Signs",q:"What does a yellow diamond sign with an S-curve arrow (winding line) mean?",o:["Road may be slippery when wet - reduce speed","Winding road ahead with several curves or turns - reduce speed","Divided highway begins","Single lane ahead - merge now"],a:1,e:"The Winding Road sign warns of several curves or turns ahead. Reduce your speed before entering the curves. This sign is commonly confused with the Slippery When Wet sign - the key difference is that the Slippery sign shows a skidding car, while the Winding Road sign shows an S-shaped arrow.",src:"Handbook S7"},
+  {t:"Road Signs",q:"An orange diamond sign showing a stick figure holding a paddle or sign means:",o:["Road work ahead - all workers have left for the day","Flagger ahead - a person is controlling traffic; you must obey their instructions","Survey crew present - slow to 15 mph","Exit only lane ahead"],a:1,e:"The Flagger Ahead sign warns that a flagger is stationed ahead to control traffic flow through a work zone. Flaggers have the same legal authority as traffic signs and signals. You must follow their instructions, which may include stopping, slowing, or taking an alternate route.",src:"Handbook S7"},
+  {t:"Road Signs",q:"A yellow diamond sign showing a right lane with an arrow pointing into the left lane means:",o:["Right turn only - left lane is closed","Right lane ends ahead - drivers in the right lane must merge left","Left lane ends - merge right","Passing lane begins on the right"],a:1,e:"The Lane Ends / Merge sign warns that a lane is ending ahead and drivers must merge into the adjacent lane. If the arrow shows the right lane merging left, drivers in the right lane must move over when it is safe to do so before the lane disappears.",src:"Handbook S7"},
+  
+  
+  {t:"Road Signs",q:"A red and white sign reading 'No Parking - Tow Away Zone' means:",o:["You may park briefly if you stay with the vehicle","You may park here but your vehicle may be towed after 30 minutes","No parking is permitted - your vehicle will be towed at your expense","No parking during rush hours only"],a:2,e:"A No Parking / Tow Away Zone sign means parking is completely prohibited and any vehicle parked there will be towed at the owner's expense. Unlike a red curb which applies at all times, a tow away zone sign may specify hours. Always read the full sign.",src:"Handbook S6"},
+  
+  
+  
+  {t:"Road Signs",q:"A white sign with a black arrow pointing right and the words 'Keep Right' means:",o:["Turn right at the next intersection","You must pass to the right of a divider, island, or obstruction ahead","The right lane is faster - move over","Stay in the right lane - left lane is for passing only"],a:1,e:"The Keep Right sign (white rectangle with black arrow) is posted at traffic islands, medians, or obstructions where you must pass to the right side. Do not pass to the left of this sign. It is also used to direct traffic around construction barriers.",src:"Handbook S7"}
 ];
 
 // ── CONSTANTS ──────────────────────────────────────────────────────────────────
@@ -300,7 +415,9 @@ var COLORS={
   "Sharing the Road":"#16a34a","Distances & Measurements":"#be185d",
   "Cell Phones & Distractions":"#7c2fbf","Roundabouts":"#0891b2",
   "Seat Belts & Child Safety":"#15803d","Fines & Penalties":"#b45309",
-  "Adverse Weather":"#1d4ed8","Tricky Questions":"#9f1239"
+  "Adverse Weather":"#1d4ed8","Tricky Questions":"#9f1239",
+  "2026 New Laws":"#0f766e","Carrying Illegal Items":"#7e22ce",
+  "California-Specific Rules":"#b91c1c"
 };
 var TOPICS=[...new Set(Q.map(function(q){return q.t;}))];
 function col(t){return COLORS[t]||"#2563eb";}
@@ -335,6 +452,72 @@ function loadProgress(){
 function clearProgress(){try{localStorage.removeItem(SK);}catch(e){}}
 function hasProgress(){
   try{var d=JSON.parse(localStorage.getItem(SK));return d&&d.cur>0&&d.cur<Q.length;}catch(e){return false;}
+}
+
+// ── QUESTION SEARCH ────────────────────────────────────────────────────────────
+var qSearchQuery="";
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function hlText(text,query){
+  if(!query)return esc(text);
+  var escaped=query.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  return esc(text).replace(new RegExp("("+escaped+")","gi"),'<span class="search-hl">$1</span>');
+}
+function onQSearch(val){
+  qSearchQuery=val.trim();
+  var clrBtn=$("qSearchClr");
+  if(clrBtn)clrBtn.style.display=val?"block":"none";
+  renderQSearch();
+}
+function clearQSearch(){
+  qSearchQuery="";
+  var inp=$("qSearchInp");if(inp)inp.value="";
+  var clrBtn=$("qSearchClr");if(clrBtn)clrBtn.style.display="none";
+  renderQSearch();
+}
+function renderQSearch(){
+  var norm=$("qNormalContent"),res=$("qSearchResults"),meta=$("qSearchMeta");
+  if(!norm||!res||!meta)return;
+  var q=qSearchQuery;
+  if(!q){
+    norm.style.display="";res.style.display="none";meta.style.display="none";
+    return;
+  }
+  norm.style.display="none";res.style.display="";meta.style.display="";
+  var lower=q.toLowerCase();
+  var matched=Q.filter(function(item){
+    return item.q.toLowerCase().indexOf(lower)>-1||
+           item.t.toLowerCase().indexOf(lower)>-1||
+           item.o.some(function(o){return o.toLowerCase().indexOf(lower)>-1;})||
+           (item.e&&item.e.toLowerCase().indexOf(lower)>-1);
+  });
+  meta.innerHTML=matched.length===0
+    ?"No questions match <strong>\""+esc(q)+"\"</strong>"
+    :"<strong>"+matched.length+"</strong> of "+Q.length+" questions match <strong>\""+esc(q)+"\"</strong>";
+  if(matched.length===0){
+    res.innerHTML='<div class="no-results">&#128269; No questions found for <strong>"'+esc(q)+'"</strong><br><a href="#" onclick="clearQSearch();return false;">Clear search</a></div>';
+    return;
+  }
+  var html="";
+  for(var i=0;i<matched.length;i++){
+    var item=matched[i],c=col(item.t);
+    var optsH="";
+    for(var oi=0;oi<item.o.length;oi++){
+      optsH+='<div style="border-radius:7px;padding:7px 11px;margin-bottom:5px;font-size:clamp(11px,2.4vw,13px);line-height:1.4;border:1px solid #e2e8f0;background:#f8fafc;color:#475569">'+
+        '<strong style="color:'+c+'">'+["A","B","C","D"][oi]+'.</strong> '+hlText(item.o[oi],q)+
+        (oi===item.a?' <span style="color:#16a34a;font-size:11px;font-weight:700">&#9989; Correct</span>':'')+
+      '</div>';
+    }
+    html+='<div class="qcard" style="margin-bottom:12px">'+
+      '<span class="tbadge" style="background:'+c+'22;color:'+c+'">'+hlText(item.t,q)+'</span>'+
+      '<div class="qtxt" style="margin-bottom:10px">'+hlText(item.q,q)+'</div>'+
+      optsH+
+      '<div style="margin-top:8px;border-radius:9px;padding:11px 13px;font-size:clamp(11px,2.4vw,13px);line-height:1.6;background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af">'+
+        '&#128161; '+hlText(item.e,q)+
+        (item.src?'<span class="src-note">Source: '+esc(item.src)+'</span>':'')+
+      '</div>'+
+    '</div>';
+  }
+  res.innerHTML=html;
 }
 
 // ── STATE ──────────────────────────────────────────────────────────────────────
@@ -470,7 +653,38 @@ var CS=[
     {k:"Right turn on red",v:"Allowed after full stop UNLESS No Turn on Red sign"},
     {k:"Right turn on red ARROW",v:"NEVER allowed"},
     {k:"Turnout lane (5+ cars behind you on mountain road)",v:"You MUST use it to let others pass"}
-  ],tip:"These are the questions that trip up the most test-takers. Review each one carefully!"}
+  ],tip:"These are the questions that trip up the most test-takers. Review each one carefully!"},
+  {icon:"&#128197;",title:"2026 New California Laws",rows:[
+    {k:"Move Over law (AB 390)",v:"Now covers ANY vehicle with hazard lights - not just emergency vehicles"},
+    {k:"IID program (AB 366)",v:"Extended to 2033 - applies to specified DUI offenders including some first-timers"},
+    {k:"DUI arrest - hearing deadline",v:"10 days to request DMV hearing or license auto-suspends"},
+    {k:"Vehicular manslaughter - probation",v:"Increased from 2 years to 3-5 years (AB 1087)"},
+    {k:"Red-light cameras (SB 720)",v:"Local governments may now issue civil penalties via automated cameras"},
+    {k:"School zone speed",v:"Remains 25 mph now - drops to 20 mph statewide on Jan 1, 2031 (AB 382)"},
+    {k:"E-bike rear light (AB 544)",v:"Required at ALL times, not just at night"},
+    {k:"License plate obstruction",v:"Up to $1,000 fine for covers or devices blocking plate readers"}
+  ],tip:"These 2026 changes are likely to appear on the exam. The expanded Move Over law and IID changes are highest priority."},
+  {icon:"&#128296;",title:"Carrying Items in Vehicles",rows:[
+    {k:"Open alcohol container",v:"Must be in trunk or area inaccessible to driver/passengers"},
+    {k:"Handgun transport",v:"Unloaded + in a locked container or trunk"},
+    {k:"Glove compartment",v:"Does NOT count as a locked container for firearms"},
+    {k:"Marijuana - driving",v:"Illegal to use or have open container accessible to driver"},
+    {k:"Marijuana - possession limit",v:"Legal for 21+ but still illegal to drive impaired"},
+    {k:"Firearms - new CA resident",v:"Report to DOJ within 60 days of bringing into California"}
+  ],tip:"TRICK: Glove compartment is NOT a locked container. Always use the trunk or a separate locked hard case for firearms."},
+  {icon:"&#128663;",title:"Registration, Insurance & Smog Quick Facts",rows:[
+    {k:"Smog check frequency",v:"Every other year (biennial) - required for registration renewal"},
+    {k:"Failed smog check",v:"Registration renewal denied until repaired/passed or waiver granted"},
+    {k:"Minimum liability insurance",v:"15/30/5 - $15,000 per person / $30,000 per accident / $5,000 property"},
+    {k:"E-bike rear light (2026)",v:"Required at ALL times now, not just at night"}
+  ],tip:"These are quick facts, not driving decisions - but DMV written tests still ask them as direct recall questions."},
+  {icon:"&#128270;",title:"Less Common Signs to Recognize",rows:[
+    {k:"Railroad Emergency sign (blue/white)",v:"Phone number to call if vehicle stalls on tracks"},
+    {k:"Advisory speed plate (yellow square)",v:"Recommended safe speed for a curve - NOT a legal limit"},
+    {k:"Railroad Crossing advance (round yellow, RR + X)",v:"Warns of tracks ahead - slow, look, listen"},
+    {k:"Traffic Signal Ahead (yellow diamond)",v:"A signal is coming up, possibly hidden by a hill/curve"},
+    {k:"Pedestrian Crossing (yellow diamond, walking figure)",v:"Crosswalk ahead - yield to pedestrians as always"}
+  ],tip:"These signs are lower-frequency on the real exam but worth recognizing by shape and color."}
 ];
 
 // ── DRIVING GUIDE DATA ─────────────────────────────────────────────────────────
@@ -530,7 +744,8 @@ function renderHome(){
     {label:"Tricky and Commonly Missed",   sub:"Questions that trip up most test-takers",              filter:["Tricky Questions"],color:"#9f1239",pausable:false},
     {label:"Signs and Signals",            sub:"Road Signs + Traffic Signals - about 25% of real exam",filter:["Road Signs","Traffic Signals & Signs"],color:"#0d9488",pausable:false},
     {label:"Numbers and Distances",        sub:"Every distance and measurement question",              filter:["Distances & Measurements"],color:"#be185d",pausable:false},
-    {label:"Parking and Curb Colors",      sub:"All parking rules and curb color questions",           filter:["Parking Rules","Curb Colors"],color:"#0891b2",pausable:false}
+    {label:"Parking and Curb Colors",      sub:"All parking rules and curb color questions",           filter:["Parking Rules","Curb Colors"],color:"#0891b2",pausable:false},
+    {label:"2026 New Laws",                sub:"Latest California law changes for 2026",               filter:["2026 New Laws"],color:"#0f766e",pausable:false}
   ];
   for(i=0;i<sets.length;i++){
     var s=sets[i];
@@ -600,8 +815,17 @@ function renderHome(){
 
   // Build tab pages
   var PAGE_QUIZ=resumeBanner+
+    '<div class="search-wrap">'+
+      '<svg class="search-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg>'+
+      '<input class="search-inp" type="text" id="qSearchInp" placeholder="Search questions by keyword — speed, parking, alcohol…" oninput="onQSearch(this.value)" autocomplete="off" />'+
+      '<button class="search-clr" id="qSearchClr" onclick="clearQSearch()">&#10005;</button>'+
+    '</div>'+
+    '<div id="qSearchMeta" class="search-meta" style="display:none"></div>'+
+    '<div id="qSearchResults" style="display:none"></div>'+
+    '<div id="qNormalContent">'+
     '<p class="sec">Practice Sets</p><div class="btn-set">'+setsHTML+'</div>'+
     '<p class="sec">Practice by Topic</p><div class="grid">'+topicHTML+'</div>'+
+    '</div>'+
     '<div class="sources"><h3>&#128218; Official Sources and References</h3>'+srcHTML+
     '<div class="disclaimer">All questions are based on the official California DMV Handbook and California Vehicle Code. This is a practice aid only - always study the official handbook before your exam.</div></div>';
 
@@ -625,7 +849,14 @@ function renderHome(){
     '</div>'+
     '<div>'+(activeTab==="quiz"?PAGE_QUIZ:activeTab==="cheat"?PAGE_CHEAT:PAGE_GUIDE)+'</div>';
 
-  // Event wiring
+  // Restore search state if quiz tab is active
+  if(activeTab==="quiz"&&qSearchQuery){
+    var inp=$("qSearchInp");
+    if(inp){inp.value=qSearchQuery;$("qSearchClr").style.display="block";}
+    renderQSearch();
+  }
+
+    // Event wiring
   on($("tabQuiz"),   "click",function(){activeTab="quiz";  renderHome();});
   on($("tabCheat"),  "click",function(){activeTab="cheat"; renderHome();});
   on($("tabGuide"),  "click",function(){activeTab="guide"; renderHome();});
