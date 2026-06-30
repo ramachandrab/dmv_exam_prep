@@ -6,6 +6,7 @@
 <meta http-equiv="Cache-Control" content="max-age=3600, must-revalidate"/>
 <meta http-equiv="Expires" content="3600"/>
 <title>CA DMV Practice Quiz 2026</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%9A%97</text></svg>"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{font-size:16px;-webkit-text-size-adjust:100%;text-size-adjust:100%}
@@ -421,7 +422,6 @@ function buildBadgeText(){
   return BUILD_VERSION+" &nbsp;&#183;&nbsp; Updated "+BUILD_DATE+" <span style='opacity:.6'>(offline)</span>";
 }
 function updateBuildBadges(){
-  var h=$("buildBadgeHeader");if(h)h.innerHTML=buildBadgeText();
   var f=$("buildBadgeFooter");if(f)f.innerHTML=buildBadgeText();
 }
 function fetchLatestCommitInfo(){
@@ -878,8 +878,7 @@ function renderHome(){
   $("app").innerHTML=
     '<div class="hdr"><div class="hdr-emoji">&#128663;</div>'+
     '<h1>California DMV Practice Quiz</h1>'+
-    '<p>'+Q.length+' questions &nbsp;&#183;&nbsp; '+TOPICS.length+' topics &nbsp;&#183;&nbsp; 2026 Edition<br>Verified against the official CA DMV Handbook and California Vehicle Code</p>'+
-    '<div id="buildBadgeHeader" style="display:inline-block;margin-top:8px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:99px;padding:4px 12px;font-size:11px;font-weight:700;color:#1e40af">'+buildBadgeText()+'</div></div>'+
+    '<p>'+Q.length+' questions &nbsp;&#183;&nbsp; '+TOPICS.length+' topics &nbsp;&#183;&nbsp; 2026 Edition<br>Verified against the official CA DMV Handbook and California Vehicle Code</p></div>'+
     '<div class="nav-tabs">'+
       '<button class="nav-tab'+(activeTab==="quiz"?" active":"")+'" id="tabQuiz">&#128221; Practice Quiz</button>'+
       '<button class="nav-tab'+(activeTab==="cheat"?" active":"")+'" id="tabCheat">&#128203; Cheat Sheet</button>'+
